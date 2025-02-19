@@ -14,15 +14,12 @@ import Logo from "../components/logo.tsx";
 const Home = lazy(() => import('../pages/home.tsx'));
 const Login = lazy(() => import('../pages/auth/login.tsx'));
 const UserDashboard = lazy(() => import('../pages/user/dashboard.tsx'));
-const Reports = lazy(() => import('../pages/admin/reports.tsx'));
 const Users = lazy(() => import('../pages/admin/users.tsx'));
-const Subscribers = lazy(() => import('../pages/admin/subscribers.tsx'));
 const NotFound = lazy(() => import('../pages/not-found.tsx'));
 const CustomSupport = lazy(() => import('../pages/privacy/custom-support.tsx'));
 const PrivacyPolicy = lazy(() => import('../pages/privacy/privacy-policy.tsx'));
 const TermsAndConditions = lazy(() => import('../pages/privacy/terms-and-conditions.tsx'));
 const Listings = lazy(() => import('../pages/listings.tsx'));
-const Contacts = lazy(() => import('../pages/contacts.tsx'));
 const AdminDashboard = lazy(() => import('../pages/admin/dashboard.tsx'));
 const QuickPost = lazy(() => import('../pages/quick-post.tsx'));
 const CardDetails = lazy(() => import('../pages/card-details.tsx'));
@@ -44,7 +41,6 @@ const AppRoutes: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<AppLayout />}>
                         <Route index element={<Home />} />
-                        <Route path="contact-us" element={<Contacts />} />
 
                         <Route path='become-host' element={<QuickPost />} />
                         <Route path="listings" element={<Listings />} />
@@ -64,8 +60,6 @@ const AppRoutes: React.FC = () => {
                             <Route path="/admin" element={<AuthAdminLayout />}>
                                 <Route path="dashboard" element={<AdminDashboard />} />
                                 <Route path="users" element={<Users />} />
-                                <Route path="subscribers" element={<Subscribers />} />
-                                <Route path="reports" element={<Reports />} />
                             </Route>
                         </Route>
 

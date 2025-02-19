@@ -29,26 +29,28 @@ const Card: React.FC<CardProps> = ({ car }) => {
 
     return (
         <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
-            <div className="overflow-hidden transition-shadow duration-300 bg-white rounded relative">
-                <Slider className="" page={page} setPage={setPage}>
-                    {car.images.map((image, index) => (
-                        <img
-                            key={index}
-                            src={image}
-                            alt={car.title}
-                            className="w-full object-cover h-64 rounded-lg"
-                        />
-                    ))}
-                </Slider>
-                {<div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-x-[5px]">
-                    {[...Array(5).keys()].map((key, index) => (
-                        <span
-                            key={index}
-                            data-selected={page === key + 1}
-                            className="w-[6px] h-[6px] bg-white opacity-[.6] data-[selected=true]:opacity-100 rounded-full"
-                        />
-                    ))}
-                </div>}
+            <div className="overflow-hidden transition-shadow duration-300 bg-white rounded-xl relative">
+                <div className="relative">
+                    <Slider className="" page={page} setPage={setPage}>
+                        {car.images.map((image, index) => (
+                            <img
+                                key={index}
+                                src={image}
+                                alt={car.title}
+                                className="w-full object-cover h-64 rounded-xl border border-gray-200"
+                            />
+                        ))}
+                    </Slider>
+                    {car.images.length > 0 && <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-x-[5px]">
+                        {[...Array(5).keys()].map((key, index) => (
+                            <span
+                                key={index}
+                                data-selected={page === key + 1}
+                                className="w-[6px] h-[6px] bg-white opacity-[.6] data-[selected=true]:opacity-100 rounded-full"
+                            />
+                        ))}
+                    </div>}
+                </div>
                 
                 <div className="inline-flex absolute top-3 left-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-full text-gray-100 bg-primary/90 mt-1">{car.category ? car.category.name : 'Vehicle'}</div>
                 

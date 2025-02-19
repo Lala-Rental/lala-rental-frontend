@@ -110,28 +110,6 @@ const NavBar: React.FC = () => {
                             )}
                         </NavLink>
 
-                        <NavLink to="/about-us" className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
-                            {({ isActive }) => (
-                                <>
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M13 22H5c-2 0-3-1-3-3v-8c0-2 1-3 3-3h5v11c0 2 1 3 3 3Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.11 4c-.08.3-.11.63-.11 1v3H5V6c0-1.1.9-2 2-2h3.11ZM14 8v5M18 8v5" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M17 17h-2c-.55 0-1 .45-1 1v4h4v-4c0-.55-.45-1-1-1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M6 13v4" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M10 19V5c0-2 1-3 3-3h6c2 0 3 1 3 3v14c0 2-1 3-3 3h-6c-2 0-3-1-3-3Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                    </span>
-                                    <span className='ml-2'>About us</span>
-                                    {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
-                                </>)}
-                        </NavLink>
-
-                        <NavLink to="/contact-us" className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
-                            {({ isActive }) => (
-                                <>
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M22 9v6c0 2.5-.5 4.25-1.62 5.38L14 14l7.73-7.73c.18.79.27 1.69.27 2.73z"></path><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21.73 6.27L6.27 21.73C3.26 21.04 2 18.96 2 15V9c0-5 2-7 7-7h6c3.96 0 6.04 1.26 6.73 4.27z"></path><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20.38 20.38C19.25 21.5 17.5 22 15 22H9c-1.04 0-1.94-.09-2.73-.27L14 14l6.38 6.38z"></path><path stroke="#697689" strokeWidth="1.5" d="M6.24 7.98c.68-2.93 5.08-2.93 5.76 0 .39 1.72-.69 3.18-1.64 4.08a1.8 1.8 0 01-2.48 0c-.95-.9-2.04-2.36-1.64-4.08z" opacity=".4"></path><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.094 8.7h.01" opacity=".4"></path></svg>
-                                    </span>
-                                    <span className='ml-2'>Contact Us</span>
-                                    {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
-                                </>)}
-                        </NavLink>
-
                         {!isAuthenticated && ( 
                             <NavLink to="/login" className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>{({ isActive }) => (
                                 <>
