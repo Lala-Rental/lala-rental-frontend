@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Circular;
+  font-weight: 300;
+  src: url("../assets/fonts/Airbnb_Cereal-Light.otf") format("opentype"),
+    url("../assets/fonts/Airbnb_Cereal-Light.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular;
+  unicode-range: U+0000-03FF, U+0500-058F, U+0700-074F, U+0780-FAFF, U+FE00-FE6F,
+    U+FF00-EFFFF, U+FFFFE-10FFFF;
+  font-weight: normal;
+  font-style: normal;
+  src: url("../assets/fonts/Airbnb_Cereal-Book.otf") format("opentype"),
+    url("../assets/fonts/Airbnb_Cereal-Book.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular;
+  unicode-range: U+0000-03FF, U+0500-058F, U+0700-074F, U+0780-FAFF, U+FE00-FE6F,
+    U+FF00-EFFFF, U+FFFFE-10FFFF;
+  font-weight: 500;
+  font-style: normal;
+  src: url("../assets/fonts/Airbnb_Cereal-Book.otf") format("opentype"),
+    url("../assets/fonts/Airbnb_Cereal-Book.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular;
+  unicode-range: U+0000-03FF, U+0500-058F, U+0700-074F, U+0780-FAFF, U+FE00-FE6F,
+    U+FF00-EFFFF, U+FFFFE-10FFFF;
+  font-weight: 700;
+  font-style: normal;
+  src: url("../assets/fonts/Airbnb_Cereal-Bold.otf") format("opentype"),
+    url("../assets/fonts/Airbnb_Cereal-Bold.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular;
+  font-weight: normal;
+  font-style: normal;
+  src: url("../assets/fonts/Airbnb_Cereal-Book.otf") format("opentype"),
+    url("../assets/fonts/Airbnb_Cereal-Book.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular;
+  font-weight: 600;
+  font-style: normal;
+  src: url("../assets/fonts/Airbnb_Cereal-Medium.otf") format("opentype"),
+    url("../assets/fonts/Airbnb_Cereal-Medium.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular;
+  font-weight: 700;
+  font-style: normal;
+  src: url("../assets/fonts/Airbnb_Cereal-Bold.otf") format("opentype"),
+    url("../assets/fonts/Airbnb_Cereal-Bold.otf") format("opentype");
+  font-display: swap;
+}
+
+body {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", sans-serif;
+  font-size: 0.875rem;
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-loader {
+  width: 108px;
+  height: 16px;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  position: relative;
+  animation: ballX 1s linear infinite;
+}
+.custom-loader:before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  inset: 0;
+  margin: auto;
+  animation: moveX 1s cubic-bezier(0.5, 300, 0.5, -300) infinite;
+}
+@keyframes ballX {
+  0%,
+  25%,
+  50%,
+  75%,
+  100% {
+    background-position: 25% 0, 75% 0;
+  }
+  40% {
+    background-position: 25% 0, 85% 0;
+  }
+  90% {
+    background-position: 15% 0, 75% 0;
+  }
+}
+@keyframes moveX {
+  100% {
+    transform: translate(0.15px);
+  }
+}
+
+/* Fetching Data Spinner */
+.fetch-loader {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite;
+}
+.fetch-loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #03783d;
+  animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+}
