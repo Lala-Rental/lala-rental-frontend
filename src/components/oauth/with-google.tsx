@@ -26,9 +26,9 @@ const ContinueWithGoogle: React.FC<OauthProps> = () => {
                     'Accept': 'application/json',
                 },
             }).then((response) => {                
-                const accessToken = response.data.access_token;
+                const accessToken = response.data.data.access_token;
                 
-                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('lala-rental-token', accessToken);
 
                 setGlobalAlert('Authentication With Google Success', 'success');  
                 setAlertMessage(response.data.message);

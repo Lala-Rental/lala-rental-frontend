@@ -10,7 +10,7 @@ const Home: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
-    const [cars, setCars] = useState<any[]>([]);
+    const [data, setData] = useState<any[]>([]);
    
     const params = {
         limit: 8,
@@ -18,12 +18,14 @@ const Home: React.FC = () => {
         direction: 'desc',
     };
 
+    const PROPERTIES_API = `/properties`;
+
     /**
-     * Fetches the cars
+     * Fetches All properties
      * 
      * @param customParams 
      */
-    const getCars = async (customParams: Axios.AxiosXHRConfigBase<unknown> | undefined = {}) => {
+    const fetchAllProperties = async (customParams: Axios.AxiosXHRConfigBase<unknown> | undefined = {}) => {
         setIsLoading(true);
 
         const formParams = {
@@ -32,9 +34,9 @@ const Home: React.FC = () => {
         };
         
         try {
-            api.get(`/cars/approved`, { params: formParams })
-                .then((response: any) => {
-                    setCars(response.data.data);
+            api.get(PROPERTIES_API, { params: formParams })
+                .then((response: any) => {                    
+                    setData(response.data.data);
                     setIsLoading(false)
                 }).catch((error: { response: { data: { message: string; }; }; }) => {
                     setAlertMessage('An error occurred. try again later');
@@ -55,7 +57,7 @@ const Home: React.FC = () => {
      */
     useEffect(() => {
         const fetchData = async () => {
-            getCars();
+            fetchAllProperties();
         };
 
         fetchData();
@@ -76,11 +78,11 @@ const Home: React.FC = () => {
             />
 
             {/* Hero Component */}
-            {/* <Hero onLoading={isLoading} onChange={getCars} /> */}
+            {/* <Hero onLoading={isLoading} onChange={fetchAllProperties} /> */}
 
             <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-26 lg:px-12 lg:py-12">
                 {/* Short list of cars */}
-                <ShortListings isLoading={isLoading} cars={cars} params={params}>
+                <ShortListings isLoading={isLoading} cars={data} params={params}>
                     <h3 className="text-2xl font-bold text-slate-700 sm:text-3xl lg:text-4xl capitalize md:leading-loose">wide range of houses to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
                     <p className="max-w-xl text-base leading-relaxed text-gray-600 mt-6">
                         Find your dream house from our extensive collection. Quality houses for every budget.

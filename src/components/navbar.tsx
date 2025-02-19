@@ -130,18 +130,18 @@ const NavBar: React.FC = () => {
                                 <span className='uppercase'>Rent Now</span>
                             </Link>
                             <Link to="/become-host" className="inline-flex border border-gray-200 h-11 w-full items-center justify-center text-sm ml-2 rounded-full bg-secondary px-5 font-medium tracking-wide text-slate-700 shadow-none outline-none transition duration-200 hover:bg-secondary focus:ring sm:w-auto">
-                                <span className='uppercase'>Become Host</span>
+                                <span className='uppercase'>Host Now</span>
                                 <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#03783d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#03783d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
                             </Link>
                         </div>
                     </div>
 
-                    <div className='ml-5 hidden md:block'>
+                    <div className='ml-3 hidden md:block'>
                         {(isAuthenticated && user) && (
                             <nav className="relative cursor-pointer">
                                 <div className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
-                                    <div className="flex items-center gap-4 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer">
-                                        <Link to="/user/dashboard" title=""> <img className="w-8 h-8 rounded-lg object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} /></Link>
+                                    <div className="flex items-center gap-4 border border-gray-200 h-11 w-full justify-center text-sm ml-2 rounded-full bg-secondary px-5 font-medium tracking-wide text-slate-700 shadow-none outline-none transition duration-200 hover:bg-secondary focus:ring sm:w-auto">
+                                        <Link to="/user/dashboard" title=""> <img className="w-8 h-8 rounded-full object-cover" src={user.avatar ? user.avatar : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} /></Link>
                                         <span onClick={toggleDropdown}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8.47 10.74L12 14.26l3.53-3.52" opacity=".4"></path></svg></span>
                                     </div>
                                 </div>
@@ -149,15 +149,12 @@ const NavBar: React.FC = () => {
                                 {isDropdownOpen && (
                                     <div ref={dropdownRef} className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-md shadow-lg z-50">
                                         <div className="flex items-center gap-4 px-3 py-4">
-                                            <img className="w-10 h-10 rounded-full object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
+                                            <img className="w-10 h-10 rounded-full object-cover" src={user.avatar ? user.avatar : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
                                             <div className="font-medium dark:text-white">
                                                 <div className='text-slate-700 capitalize'>{user.name}</div>
                                                 <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
                                             </div>
                                         </div>
-                                        {user && user.roles.includes('admin') && (
-                                            <Link to="/admin/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Administration</Link>
-                                        )}
                                         <Link to="/user/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
                                         <NavLink to="#" onClick={openModal} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</NavLink>
                                     </div>
@@ -218,7 +215,7 @@ const NavBar: React.FC = () => {
                             {isAuthenticated && user && (
                                 <Link to="/user/dashboard" title="" className="text-base font-medium mt-10 text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
                                     <div className="flex items-center gap-4">
-                                        <img className="w-10 h-10 rounded-full object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
+                                        <img className="w-10 h-10 rounded-full object-cover" src={user.avatar ? user.avatar : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
                                         <div className="font-medium dark:text-white">
                                             <div className='text-slate-700 capitalize'>{user.name}</div>
                                             <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>

@@ -24,7 +24,7 @@ const ShortListings: React.FC<ShortListingsProps> = ({ children, isLoading, cars
             {!isLoading && <div className='mt-10'>
                 <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                        
                     {cars.map((item, index) => (
-                        <Card key={index} car={item} />
+                        <Card key={index} data={item} />
                     ))}
                 </div>
             </div>}
