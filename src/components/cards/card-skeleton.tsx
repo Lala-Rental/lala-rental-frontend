@@ -2,7 +2,7 @@ import React from 'react';
 
 const CardSkeleton: React.FC = () => {
     return (
-        <div className="overflow-hidden transition-shadow duration-300 bg-white rounded animate-pulse">
+        <div className="overflow-hidden transition-shadow duration-300 bg-white rounded animate-pulse mt-5">
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
                 <div className="relative">
                     <div className="object-cover w-full h-64 rounded-lg bg-gray-300"></div>

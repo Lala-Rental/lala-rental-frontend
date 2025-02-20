@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { ReactComponent as ArrowRight } from "../../assets/svgs/arrow-right.svg";
 import useWindowSize from "../../hooks/useWindowSize";
 
-const Slider = ({ children, className }) => {
+const Slider = ({ children, className, page, setPage }) => {
   const { width } = useWindowSize();
-  const [page, setPage] = useState(0);
 
   const slider = useRef();
   const prevButton = useRef();

@@ -32,10 +32,10 @@ const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
                                     <p className="bg-teal-accent-400 mb-4 inline-block rounded-full bg-green-100 px-3 py-1 border border-gray-200 text-sm font-semibold tracking-wider text-green-900">Get started now with free account</p>
                                 </div>
                                 <h2 className="mb-6 max-w-lg font-sans text-3xl font-bold text-slate-700 sm:text-5xl mt-5 leading-snug tracking-wide">
-                                    Buy & Sell On <br /> #1 Marketplace for <span className="inline-block text-primary">Cars </span> in <span className="inline-block text-primary">Rwanda</span>
+                                    Buy & Sell On <br /> #1 Marketplace for <span className="inline-block text-primary">Properties </span> in <span className="inline-block text-primary">Rwanda</span>
                                 </h2>
                                 <p className="text-base text-gray-700 md:text-lg">
-                                    Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all.
+                                    Discover a wide range of properties to suit every need and budget. Whether you're looking for the latest listings, reliable used properties, or something in between, we have it all.
                                 </p>
                             </div>
 
@@ -47,7 +47,7 @@ const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                         onKeyDown={handleKeyDown}
-                                        placeholder="Search your desired car..."
+                                        placeholder="Search your desired property..."
                                         className="border-none font-bold outline-none focus:border-none focus:outline-none ml-3 bg-white w-full h-full text-slate-700"
                                     />
                                     <div className='hidden md:block'>

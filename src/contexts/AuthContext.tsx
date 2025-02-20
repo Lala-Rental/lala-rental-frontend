@@ -24,37 +24,34 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const { setGlobalAlert } = useGlobalAlert();
     const [loading, setLoading] = useState(true);
 
-    const fetchUserProfile = (accessToken: string) => {
+    const fetchUserProfile = async (accessToken: string) => {
         try {
-            api.get('/user/profile', {
+            const response = await api.get('/auth/user', {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'Accept': 'application/json',
                 },
-            }).then((response) => {
-                setToken(accessToken);
-                setUser((response.data as { data: any }).data);
-                setIsAuthenticated(true);
-                setLoading(false);
-            }).catch((error) => {
-                setGlobalAlert("Your session has expired. Please log in again.", 'error');
-                setLoading(false);
             });
+
+            const userData = response?.data as { data: any };
+            
+            setToken(accessToken);
+            setUser(userData.data);
+            setIsAuthenticated(true);
         } catch (error) {
-            setGlobalAlert("Unable to fetch User profile", 'error');
+            setGlobalAlert("Your session has expired. Please log in again.", 'error');
+        } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        const accessToken = localStorage.getItem('accessToken');
-
+        const accessToken = localStorage.getItem('lala-rental-token');
+        
         if (accessToken) {
             fetchUserProfile(accessToken);
-            return;
         } else {
             setLoading(false);
-            return;
         }
     }, []);
 

@@ -46,13 +46,13 @@ const Contacts: React.FC = () => {
 
     return (
         <>
-            <MetaTags
-                title="Contact Us - Lala Rental" 
-                description="Get in touch with Lala Rental. We're here to help you with all your car trading needs. Reach out to us today and let's start your journey towards finding the perfect car."
-                keywords="Lala Rental, contact us, car trading, customer support, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
-                canonical={`${process.env.PUBLIC_URL}/contact`}
-                ogTitle="Contact Us - Lala Rental" 
-                ogDescription="Reach out to Lala Rental for all your car trading needs. Our team is here to support you every step of the way."
+            <MetaTags 
+                title="Lala Rental" 
+                description="Discover a wide range of properties to suit every need and budget. Whether you're looking for the latest listings, reliable used properties, or something in between, we have it all. Start your journey with us today and find the perfect property for you."
+                keywords="Lala Rental, properties, property rental, property rental africa, property rental rwanda, property rental kenya, property rental nigeria, property rental ghana, property rental south africa, property rental tanzania, property rental uganda"
+                canonical={`${process.env.PUBLIC_URL}/`}
+                ogTitle="Lala Rental" 
+                ogDescription="Find your dream property from our extensive collection. Quality properties for every budget." 
                 ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
                 twitterCard="summary_large_image"
             />
