@@ -16,7 +16,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <p className="mt-2 text-base text-gray-600 flex">Don’t have an account?</p>
 
             {/* Continue with oauth */}
-            <OAuth onLoading={() => {}} />
+            <OAuth data={{ role: 'HOST' }} />
         </FormModal>
     </>);
 }

@@ -9,7 +9,7 @@ import MetaTags from '../components/MetaTags.tsx';
 import FormModal from '../components/models/form-model.tsx';
 import TextInput from '../components/inputs/text-input.tsx';
 import TextAreaInput from '../components/inputs/textarea-input.tsx';
-import AuthButton from '../components/buttons/auth-button.tsx';
+import FormButton from '../components/buttons/form-button.tsx';
 
 interface Car {
     title: string;
@@ -265,7 +265,7 @@ const CardDetails: React.FC = () => {
                                                     </TextAreaInput>
 
                                                     <div className="flex items-center justify-between mt-4">
-                                                        <AuthButton text="Send Now" isLoading={isLoading} type="submit" className="mt-5" />
+                                                        <FormButton text="Send Now" isLoading={isLoading} type="submit" className="mt-5" />
                                                     </div>
                                                 </form>
                                             </FormModal>

@@ -24,7 +24,7 @@ const Login: React.FC = () => {
                         <p className="mt-2 text-base text-gray-600">Don’t have an account? <Link to="/signup" title="" className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline">Create a free account</Link></p>
 
                         {/* Continue with oauth */}
-                        <OAuth onLoading={() => {}} />
+                        <OAuth data={{ role: 'RENTER' }} />
                     </div>
                 </div>
             </div>

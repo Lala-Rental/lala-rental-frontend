@@ -31,9 +31,7 @@ const TableRow: React.FC<TableRowProps> = ({ index, data, onDelete, onUpdate, ap
                 </div>
             </td>
             <td className="p-2 whitespace-nowrap">
-                <div className={`rounded-md text-gray-100 text-center px-2 text-sm ${data.status === 'available' ? 'bg-green-600/70' : 'bg-red-600/70'}`}>
-                    {data.status}
-                </div>
+                <div className="text-slate-700 text-left px-2 text-sm">{data.status ?? "Unknown"}</div>
             </td>
             <td className="p-2 whitespace-nowrap">
                 <div className='flex items-center space-x-2'>

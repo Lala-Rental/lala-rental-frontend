@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CarForm from '../components/forms/car-form.tsx';
 import { useNavigate } from 'react-router-dom';
+import PropertyForm from '../components/forms/property-form.tsx';
 
 const QuickPost: React.FC = () => {
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ const QuickPost: React.FC = () => {
                             <p className={`bg-teal-accent-400 inline-block rounded-full bg-red-100 border-red-200 text-red-900 px-3 py-1 border text-sm font-semibold tracking-wider`}>{formValidation}</p>
                         </div>)}
 
-                        <CarForm 
+                        <PropertyForm 
                             onCallback={handleCarSubmit} 
                             onFallback={handleFormError}
                             isEditing={false} 

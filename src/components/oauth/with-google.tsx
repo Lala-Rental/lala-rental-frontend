@@ -6,10 +6,10 @@ import AlertMessage from '../alerts/alert-message.tsx';
 import { useNavigate } from 'react-router-dom';
 
 interface OauthProps {
-    onLoading: (loading: boolean) => void
+    metaData?: any;
 }
 
-const ContinueWithGoogle: React.FC<OauthProps> = () => {
+const ContinueWithGoogle: React.FC<OauthProps> = ({ metaData }) => {
     const [loading, setLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const { setGlobalAlert } = useGlobalAlert();
@@ -20,7 +20,7 @@ const ContinueWithGoogle: React.FC<OauthProps> = () => {
         try {
             setLoading(true);
 
-            api.post<{ access_token: string, message: string }>('/auth/google', { token: tokenResponse.access_token }, {
+            api.post<{ data: { access_token: string }, message: string }>('/auth/google', { token: tokenResponse.access_token, ...metaData }, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
