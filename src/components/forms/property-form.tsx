@@ -10,13 +10,13 @@ import AlertMessage from '../alerts/alert-message.tsx';
 import { useAuth } from '../../contexts/AuthContext.tsx';
 import AuthModal from '../auth/auth-modal.tsx';
 import HosterFormModal from './hoster-form.tsx';
-import { ICar } from '../../types/car-type.ts';
+import { IProperty } from '../../types/property.type.ts';
 import FormButton from '../buttons/form-button.tsx';
 import { HosterForm } from '../../types/hoster.type.ts';
 
 interface PropertyFormProps {
-    onCallback: (car: ICar) => void;
-    onFallback?: (car: ICar, id: string) => void;
+    onCallback: (data: IProperty) => void;
+    onFallback?: (data: IProperty, id: string) => void;
     isEditing: boolean;
     initialData?: any
 }
@@ -37,7 +37,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onCallback, onFallback, isE
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [isLoading, setIsloading] = useState(false);
     
-    const [propertyDetails, setPropertyDetails] = useState<ICar | null>(null);
+    const [propertyDetails, setPropertyDetails] = useState<IProperty | null>(null);
     const [host, setHost] = useState<HosterForm | null>(null);
     
     const [hostModal, setHostModal] = useState(false);
@@ -91,7 +91,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onCallback, onFallback, isE
         closeHosterModal();
 
         return (isAuthenticated && user) 
-            ? handleUserProperty({}) : openAuthModal();
+            ? handleUserProperty({ access_token: token as string }) : openAuthModal();
     }
 
     /**
@@ -99,14 +99,15 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onCallback, onFallback, isE
      * 
      * @param response
      */
-    const handleUserProperty = (response: any) => {
-        return isEditing ? handleUpdateForm : handleFormSubmision();
+    const handleUserProperty = (response: { access_token: string }) => {
+        const { access_token } = response;
+        return isEditing ? handleUpdateForm(access_token) : handleFormSubmision(access_token);
     }
 
     /**
      * Submit form
      */
-    const handleFormSubmision = () => {        
+    const handleFormSubmision = (access_token: string) => {        
         const missing: string[] = [];
 
         if (!propertyDetails) {
@@ -145,7 +146,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onCallback, onFallback, isE
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Accept': 'application/json',
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${access_token}`
                 }
             }).then((response: any) => {
                 closeHosterModal();
@@ -171,7 +172,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onCallback, onFallback, isE
      /**
      * Submit update form 
      */
-    const handleUpdateForm = () => {
+    const handleUpdateForm = (access_token: string) => {
         const missing: string[] = [];
 
         if (!propertyDetails) {
@@ -208,7 +209,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onCallback, onFallback, isE
             api.put(`/properties/${initialData.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${access_token}`,
                     'Accept': 'application/json'
                 }
             }).then((response: any) => {

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import CarPostingSection from '../components/sections/listings/card-listing.tsx';
 import api from '../services/api.ts';
 import { useParams } from 'react-router-dom';
 import FetchLoader from '../components/loaders/fetching-loader.tsx';
@@ -10,32 +9,15 @@ import FormModal from '../components/models/form-model.tsx';
 import TextInput from '../components/inputs/text-input.tsx';
 import TextAreaInput from '../components/inputs/textarea-input.tsx';
 import FormButton from '../components/buttons/form-button.tsx';
-
-interface Car {
-    title: string;
-    images: string[];
-    price: string;
-    make: string;
-    car_model: string;
-    transmission: string;
-    fuel_type: string;
-    description: string;
-    mileage: string;
-    category: { name: string };
-    condition: string;
-    seller: { fullname: string, email: string, phone: string };
-    features: any[];
-    autonomy: string;
-    seats: string;
-    color: string;
-}
+import CardListing from '../components/sections/listings/card-listing.tsx';
+import { IPropertyDetails } from '../types/property.type.ts';
 
 const CardDetails: React.FC = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
 
-    const [car, setCar] = useState<Car | null>(null);
-    const [relatedCars, setRelatedCars] = useState<any[]>([]);
+    const [propertyDetails, setPropertyDetails] = useState<IPropertyDetails | null>(null);
+    const [relatedProperties, setRelatedCars] = useState<any[]>([]);
     const { id } = useParams<{ id: string }>();
     const contactNumber = process.env.REACT_APP_ADMIN_PHONE;
     
@@ -61,7 +43,7 @@ const CardDetails: React.FC = () => {
         window.open(whatsappUrl, '_blank');
     };
 
-    const handleSubmitInquiry = () => {
+    const handleBooking = () => {
         if (!fullname || !email || !message) {
             setAlertMessage('all inputs are required');
             setAlertType('error');
@@ -107,10 +89,10 @@ const CardDetails: React.FC = () => {
 
         try {
             api.get(`/cars/show/${id}`).then((response: any) => {
-                setCar(response.data.data);
+                setPropertyDetails(response.data.data);
                 setIsloading(false);
             }).catch(() => {
-                setAlertMessage('An error occurred. Unable to fetch car details.');
+                setAlertMessage('An error occurred. Unable to fetch details.');
                 setAlertType('error');
                 setIsloading(false);
             });
@@ -139,10 +121,10 @@ const CardDetails: React.FC = () => {
     }
 
     useEffect(() => {
-        if (car && car.images && car.images.length > 0) {
-            setDefaultImage(car.images[0]);
+        if (propertyDetails && propertyDetails.images && propertyDetails.images.length > 0) {
+            setDefaultImage((propertyDetails.images[0] as unknown as string));
         }
-    }, [car]);
+    }, [propertyDetails]);
 
     useEffect(() => {
         fetchCardDetails();
@@ -152,20 +134,20 @@ const CardDetails: React.FC = () => {
     return (
         <div>
             <MetaTags
-                title={`${car?.title} - Lala Rental`} 
-                description={car ? car.description : 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
-                keywords="Lala Rental, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
-                canonical={`${process.env.PUBLIC_URL}/cars/${id}`}
-                ogTitle={`${car?.title} - Lala Rental`} 
-                ogDescription={car ? car.description : 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
-                ogImage={car ? car.images[0] : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'}
+                title={`${propertyDetails?.title} - Lala Rental`} 
+                description={propertyDetails ? propertyDetails.description : 'Discover your dream property from our extensive listings. Quality properties for every budget and need.'}
+                keywords="Lala Rental, property listings, properties, new properties, used properties, property trader, property trader africa, property trader rwanda, property trader kenya, property trader nigeria, property trader ghana, property trader south africa, property trader tanzania, property trader uganda"
+                canonical={`${process.env.PUBLIC_URL}/properties/${id}`}
+                ogTitle={`${propertyDetails?.title} - Lala Rental`} 
+                ogDescription={propertyDetails ? propertyDetails.description : 'Discover your dream property from our extensive listings. Quality properties for every budget and need.'}
+                ogImage={propertyDetails ? propertyDetails.images[0] : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'}
                 twitterCard="summary_large_image"
             />
 
             {isLoading && (<div className='h-96 flex items-center justify-center'><FetchLoader /></div>)}
 
             {/* Car Details */}
-            {(!isLoading && car) && <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
+            {(!isLoading && propertyDetails) && <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
                 <div className="container">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                         <div>
@@ -175,7 +157,7 @@ const CardDetails: React.FC = () => {
                                         <div className="swiper-container swiper-initialized swiper-horizontal swiper-pointer-events">
                                             <div className="swiper-wrapper" id="swiper-wrapper-5b26c8f3eb7d9756 rounded-lg" aria-live="polite">
                                                 <div className="swiper-slide swiper-slide-active w-[559px] h-[400px] border border-gray-200 rounded-lg" role="group" aria-label="1 / 5">
-                                                    <img src={selectedImage ? selectedImage : defaultImage} alt={car ? car.title : 'Lala Rental Image'} className='rounded-lg h-full w-full object-cover transform transition-transform duration-300 hover:scale-105' />
+                                                    <img src={selectedImage ? selectedImage : defaultImage} alt={propertyDetails ? propertyDetails.title : 'Lala Rental Image'} className='rounded-lg h-full w-full object-cover transform transition-transform duration-300 hover:scale-105' />
                                                 </div>
                                             </div>
                                         </div>
@@ -184,10 +166,10 @@ const CardDetails: React.FC = () => {
                                     <div className="gallery-nav relative">
                                         <div className="swiper-container swiper-initialized swiper-horizontal swiper-pointer-events swiper-thumbs">
                                             <div className="swiper-wrapper flex items-center overflow-auto" id="swiper-wrapper-ba56aeabc563cf4d" aria-live="polite">
-                                                {car && car.images.length > 1 && car.images.map((image: string, index: number) => (
+                                                {propertyDetails && propertyDetails.images.length > 1 && propertyDetails.images.map((image: string, index: number) => (
                                                     <div key={index} className="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next w-[133.75px] mr-[8px] cursor-pointer" data-swiper-slide-index="1" role="group" aria-label="2 / 5">
-                                                        <div onClick={(e) => { e.preventDefault(); handleImageClick(image); }} className="swiper-slide w-[133.75px] h-[80px] mr-[8px]" data-swiper-slide-index={index} role="group" aria-label={`${index + 1} / ${car.images.length}`}>
-                                                            <img src={image} alt={car.title} className='rounded-lg h-full w-full object-cover transform transition-transform duration-300 hover:scale-105' />
+                                                        <div onClick={(e) => { e.preventDefault(); handleImageClick(image); }} className="swiper-slide w-[133.75px] h-[80px] mr-[8px]" data-swiper-slide-index={index} role="group" aria-label={`${index + 1} / ${propertyDetails.images.length}`}>
+                                                            <img src={image} alt={propertyDetails.title} className='rounded-lg h-full w-full object-cover transform transition-transform duration-300 hover:scale-105' />
                                                         </div>
                                                     </div>
                                                 ))}
@@ -199,20 +181,15 @@ const CardDetails: React.FC = () => {
                         </div>
 
                         <div>
-                            <h3 className="text-2xl font-bold capitalize text-slate-700">{car && car.title}</h3>
+                            <h3 className="text-2xl font-bold capitalize text-slate-700">{propertyDetails && propertyDetails.title}</h3>
                             <h2 className="font-bold flex items-center text-md leading-none text-orange my-3 text-2xl text-green-700">
                                 <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><g opacity=".4" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.752 16.86v2.03c0 1.72-1.6 3.11-3.57 3.11-1.97 0-3.58-1.39-3.58-3.11v-2.03c0 1.72 1.6 2.94 3.58 2.94 1.97 0 3.57-1.23 3.57-2.94Z"></path><path d="M10.75 14.112c0 .5-.14.96-.38 1.36-.59.97-1.8 1.58-3.2 1.58-1.4 0-2.61-.62-3.2-1.58-.24-.4-.38-.86-.38-1.36 0-.86.4-1.63 1.04-2.19.65-.57 1.54-.91 2.53-.91.99 0 1.88.35 2.53.91.66.55 1.06 1.33 1.06 2.19Z"></path><path d="M10.752 14.11v2.75c0 1.72-1.6 2.94-3.57 2.94-1.97 0-3.58-1.23-3.58-2.94v-2.75c0-1.72 1.6-3.11 3.58-3.11.99 0 1.88.35 2.53.91.64.56 1.04 1.34 1.04 2.2Z"></path></g><path d="M22 10.97v2.06c0 .55-.44 1-1 1.02h-1.96c-1.08 0-2.07-.79-2.16-1.87-.06-.63.18-1.22.6-1.63.37-.38.88-.6 1.44-.6H21c.56.02 1 .47 1 1.02Z" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M2 10.5v-2c0-2.72 1.64-4.62 4.19-4.94.26-.04.53-.06.81-.06h9c.26 0 .51.01.75.05C19.33 3.85 21 5.76 21 8.5v1.45h-2.08c-.56 0-1.07.22-1.44.6-.42.41-.66 1-.6 1.63.09 1.08 1.08 1.87 2.16 1.87H21v1.45c0 3-2 5-5 5h-2.5" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                <span className='ml-3'>{new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(car && car.price))}</span>
+                                <span className='ml-3'>{new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(propertyDetails && propertyDetails.price))}</span>
                             </h2>
 
-                            <div className='p-3 bg-primary/20 rounded-lg border border-[#03783d]/50 mt-10 mb-5'>
-                                <div className="mb-3 font-bold">{car && car.make} - {car && car.car_model}</div>
-                                <div className="font-bold">{car && car.transmission} - {car && car.fuel_type}</div>
-                            </div>
-
-                            <div className="mb-3"><span>Dealler:</span> <span className="font-semibold">{ car.seller?.fullname }</span></div>
+                            <div className="mb-3"><span>Dealler:</span> <span className="font-semibold">{ propertyDetails.hoster?.fullname }</span></div>
                             <div className="h-0 mt-6 mb-4 border-t-2 border-gray-200 border-dashed"></div>
-                            <p className="mb-8">{car && car.description}</p>
+                            <p className="mb-8">{propertyDetails && propertyDetails.description}</p>
 
                             <div>
                                 <div className="mb-8">
@@ -234,11 +211,11 @@ const CardDetails: React.FC = () => {
                                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8.5 19H8c-4 0-6-1-6-6V8c0-4 2-6 6-6h8c4 0 6 2 6 6v5c0 4-2 6-6 6h-.5c-.31 0-.61.15-.8.4l-1.5 2c-.66.88-1.74.88-2.4 0l-1.5-2c-.16-.22-.53-.4-.8-.4Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M15.995 11h.008M11.995 11h.009M7.995 11h.008" stroke="#697689" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
                                                     <span className='ml-2'>Send Your Inquiry Now!</span>
                                                 </h2>
-                                                <p>Interested in this car? Send us your inquiry and we'll get back to you as soon as possible. Fill out the details below to get started.</p>
+                                                <p>Interested in this propertyDetails? Send us your inquiry and we'll get back to you as soon as possible. Fill out the details below to get started.</p>
 
                                                 <hr className="my-5 border-gray-200" />
 
-                                                <form onSubmit={handleSubmitInquiry}>
+                                                <form onSubmit={handleBooking}>
 
                                                     <TextInput
                                                         label="Your Fullname"
@@ -275,114 +252,16 @@ const CardDetails: React.FC = () => {
                             </div>
                         </div>
                     </div>
-
-                    <div className="mt-12">
-
-                        {/* Car Overview */}
-                        <div className="">
-                            <h2 className="text-2xl font-bold text-gray-800">Overview</h2>
-                            <div className="mt-2 w-20 h-1 bg-primary rounded-lg"></div>
-
-                            <div className="grid grid-cols-5 gap-4 mt-8">
-                                <div className="text-center bg-gray-50 px-3 py-3 rounded-lg border border-gray-200 capitalize">
-                                    <span className="text-gray-600">Mileage</span>
-                                    <p className="text-gray-800 font-bold text-lg mt-2">{ car.mileage }</p>
-                                </div>
-                                <div className="text-center bg-gray-50 px-3 py-3 rounded-lg border border-gray-200 capitalize">
-                                    <span className="text-gray-600">Fuel Type</span>
-                                    <p className="text-gray-800 font-bold text-lg mt-2">{ car.fuel_type }</p>
-                                </div>
-                                <div className="text-center bg-gray-50 px-3 py-3 rounded-lg border border-gray-200 capitalize">
-                                    <span className="text-gray-600">Transmission</span>
-                                    <p className="text-gray-800 font-bold text-lg mt-2">{ car.transmission }</p>
-                                </div>
-                                <div className="text-center bg-gray-50 px-3 py-3 rounded-lg border border-gray-200 capitalize">
-                                    <span className="text-gray-600">Autonomy</span>
-                                    <p className="text-gray-800 font-bold text-sm mt-2">{ car.autonomy ?? 'N/A' }</p>
-                                </div>
-                                <div className="text-center bg-gray-50 px-3 py-3 rounded-lg border border-gray-200 capitalize">
-                                    <span className="text-gray-600">Seats</span>
-                                    <p className="text-gray-800 font-bold text-lg mt-2">{ car.seats }</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Car Summary */}
-                        <div className="mt-12">
-                            <h2 className="text-2xl font-bold text-gray-800">Summary</h2>
-                            <div className="mt-2 w-20 h-1 bg-primary rounded-lg"></div>
-
-                            <div className="grid grid-cols-2 gap-6 mt-8">
-                                <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                    <span className="flex items-center gap-2 text-gray-600">
-                                        <svg className="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-                                        </svg>
-                                        Body Type
-                                    </span>
-                                    <span className="text-gray-800 font-bold capitalize">{ car.category.name }</span>
-                                </div>
-
-                                <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                    <span className="flex items-center gap-2 text-gray-600">
-                                        <svg className="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 16.5v-9m0 0a3.5 3.5 0 013.5-3.5h11a3.5 3.5 0 013.5 3.5v9a3.5 3.5 0 01-3.5 3.5h-11a3.5 3.5 0 01-3.5-3.5zm16.5 0h-15" />
-                                        </svg>
-                                        Number of Keys
-                                    </span>
-                                    <span className="text-gray-800 font-bold capitalize">N/A</span>
-                                </div>
-                                <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                    <span className="flex items-center gap-2 text-gray-600">
-                                        <svg className="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.5 12l-7.5 7.5m0 0l-7.5-7.5m7.5 7.5V4.5" />
-                                        </svg>
-                                        Main Color
-                                    </span>
-                                    <span className="text-gray-800 font-bold capitalize">{ car.color }</span>
-                                </div>
-                                <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                    <span className="flex items-center gap-2 text-gray-600">
-                                        <svg className="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19h6M12 15v4m-4-4h8" />
-                                        </svg>
-                                        Condition
-                                    </span>
-                                    <span className="text-gray-800 font-bold capitalize">{ car.condition }</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Car Features */}
-                        <div className="bg-white mt-12">
-                            <h2 className="text-2xl font-bold mb-6">Features</h2>
-                            <div className="mt-2 w-20 h-1 bg-primary rounded-lg"></div>
-                            
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-8">
-                                {car.features && car.features.map((feature, index) => (
-                                    <div key={index} className="flex items-center p-4 border rounded-lg justify-between">
-                                        <span className="mr-2">{feature}</span>
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <path opacity=".34" d="m8.38 11.998 2.41 2.42 4.83-4.84" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                                                <path d="M10.75 2.45c.69-.59 1.82-.59 2.52 0l1.58 1.36c.3.26.86.47 1.26.47h1.7c1.06 0 1.93.87 1.93 1.93v1.7c0 .39.21.96.47 1.26l1.36 1.58c.59.69.59 1.82 0 2.52l-1.36 1.58c-.26.3-.47.86-.47 1.26v1.7c0 1.06-.87 1.93-1.93 1.93h-1.7c-.39 0-.96.21-1.26.47l-1.58 1.36c-.69.59-1.82.59-2.52 0l-1.58-1.36c-.3-.26-.86-.47-1.26-.47H6.18c-1.06 0-1.93-.87-1.93-1.93V16.1c0-.39-.21-.95-.46-1.25l-1.35-1.59c-.58-.69-.58-1.81 0-2.5l1.35-1.59c.25-.3.46-.86.46-1.25V6.2c0-1.06.87-1.93 1.93-1.93h1.73c.39 0 .96-.21 1.26-.47l1.58-1.35Z" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>}
 
-            {/* Car Posting Section */}
-            {relatedCars.length > 1 && <section className='py-4 lg:py-4'>
+            {/* Related Properities Section */}
+            {relatedProperties.length > 1 && <section className='py-4 lg:py-4'>
                 {/* related cars */}
-                <CarPostingSection
+                <CardListing
                     title="Cars you might be interested In"
                     description="Other listings that might interest you based on your current selection."
-                    cars={relatedCars}
+                    datas={relatedProperties}
                     isLoading={isLoading}
                 />
             </section>}

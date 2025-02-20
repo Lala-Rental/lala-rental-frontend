@@ -53,7 +53,7 @@ const BasicInformation: React.FC<BasicInformProps> = ({ title, setTitle, locatio
 
             <TextAreaInput
                 label="Description"
-                placeholder="Write a short description about your car"
+                placeholder="Write a short description"
                 value={description}
                 onChange={setDescription}
                 errorMessage={getErrorField('description')}>

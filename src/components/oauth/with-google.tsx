@@ -3,18 +3,17 @@ import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
 import api from '../../services/api.ts';
 import { useGlobalAlert } from '../../contexts/AlertContext.tsx';
 import AlertMessage from '../alerts/alert-message.tsx';
-import { useNavigate } from 'react-router-dom';
 
 interface OauthProps {
     metaData?: any;
+    callback: (response: any) => void;
 }
 
-const ContinueWithGoogle: React.FC<OauthProps> = ({ metaData }) => {
+const ContinueWithGoogle: React.FC<OauthProps> = ({ metaData, callback }) => {
     const [loading, setLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const { setGlobalAlert } = useGlobalAlert();
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
-    const navigate = useNavigate();
     
     const handleSubmit = async (tokenResponse: Omit<TokenResponse, "error" | "error_description" | "error_uri">) => {
         try {
@@ -34,8 +33,7 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ metaData }) => {
                 setAlertMessage(response.data.message);
                 setAlertType('success');
                 setLoading(false);
-
-                navigate('/user/dashboard');
+                callback({ access_token: accessToken });
             }).catch((error) => {
                 setAlertMessage('An error occurred. '+error.response.data.message);
                 setAlertType('error');

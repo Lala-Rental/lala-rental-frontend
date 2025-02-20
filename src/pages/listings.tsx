@@ -57,12 +57,12 @@ const Listings: React.FC = () => {
     return (
         <div>
             <MetaTags 
-                title="Car Listings - Lala Rental" 
-                description="Explore our extensive car listings to find the perfect vehicle for you. From the latest models to reliable used cars, we have something for everyone. Start your journey with Lala Rental today!"
-                keywords="Lala Rental, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
-                canonical={`${process.env.PUBLIC_URL}/listings`}
-                ogTitle="Car Listings - Lala Rental" 
-                ogDescription="Discover your dream car from our extensive listings. Quality cars for every budget and need."
+                title="Lala Rental" 
+                description="Discover a wide range of properties to suit every need and budget. Whether you're looking for the latest listings, reliable used properties, or something in between, we have it all. Start your journey with us today and find the perfect property for you."
+                keywords="Lala Rental, properties, property rental, property rental africa, property rental rwanda, property rental kenya, property rental nigeria, property rental ghana, property rental south africa, property rental tanzania, property rental uganda"
+                canonical={`${process.env.PUBLIC_URL}/`}
+                ogTitle="Lala Rental" 
+                ogDescription="Find your dream property from our extensive collection. Quality properties for every budget." 
                 ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
                 twitterCard="summary_large_image"
             />
