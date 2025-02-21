@@ -15,10 +15,11 @@ const QuickPost: React.FC = () => {
     const handleFormSubmit = (response: any) => navigate('/listings');
 
     return (
-        <section className="bg-white">
+        <section className="bg-primary">
             <div className="flex items-center justify-center">
-                <div className="flex items-center justify-center px-2 py-10 bg-white sm:px-6 lg:px-10 sm:py-16 lg:py-10">
-                    <div className="xl:w-full 2xl:max-w-md xl:mx-auto">
+                <div className="flex items-center justify-center px-2 py-10 sm:px-6 lg:px-10 sm:py-16 lg:py-10">
+                    
+                    <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 lg:p-12 xl:p-16 w-full max-w-2xl">
                         <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">List Your House in Minutes!</h2>
                         <p className="mt-2 text-base text-gray-600">Reach potential renters with an eye-catching listing. Fill out the details below to get started</p>
 
@@ -33,6 +34,7 @@ const QuickPost: React.FC = () => {
                             initialData={null} 
                         />
                     </div>
+
                 </div>
             </div>
         </section>

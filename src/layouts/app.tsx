@@ -6,7 +6,7 @@ import Announcements from '../components/alerts/announcements.tsx';
 
 const AppLayout: React.FC = () => {
     return (
-        <main className="layout">
+        <main className="layout bg-primary">
             {/* Alert Message Component */}
             <Announcements />
 

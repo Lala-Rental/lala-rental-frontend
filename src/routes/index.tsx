@@ -7,7 +7,7 @@ import ProtectedRoute from '../utils/ProtectedRoute.tsx';
 // Layouts
 import AppLayout from '../layouts/app.tsx';
 import AuthUserLayout from '../layouts/user.tsx';
-import Logo from "../components/logo.tsx";
+import SplashScreen from "../components/splash-screen.tsx";
 
 // Pages
 const Home = lazy(() => import('../pages/home.tsx'));
@@ -24,12 +24,7 @@ const CardDetails = lazy(() => import('../pages/card-details.tsx'));
 
 // Fallback Loader Component
 const Loading = () => {
-    return (<div className="h-screen w-screen flex items-center justify-center">
-        <div className="flex items-center space-x-2">
-            <Logo />
-            <span className='font-bold capitalize leading-10 text-xl'>Lala Rental</span>
-        </div>
-    </div>);
+    return (<SplashScreen />);
 };
 
 const AppRoutes: React.FC = () => {

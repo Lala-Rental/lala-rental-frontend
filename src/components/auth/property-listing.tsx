@@ -19,7 +19,7 @@ const PropertyListing: React.FC = () => {
         setIsloading(true);
 
         try {
-            api.get('/properties', {
+            api.get('/properties/user/all', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },

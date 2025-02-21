@@ -114,7 +114,7 @@ const Listings: React.FC = () => {
                     {/* Listing */}
                     <div className="md:ml-5 w-full mt-5 md:mt-0">
                         {/* Skeleton */}
-                        {isLoading && <CardListingSkeleton numberOfCards={6} numberOfColumns={3} />}
+                        {isLoading && <CardListingSkeleton numberOfCards={6} numberOfColumns={4} />}
 
                         {/* Listing */}
                         {(!isLoading && properties.length > 0) && <div className=''>
@@ -127,7 +127,7 @@ const Listings: React.FC = () => {
 
                         {(!isLoading && properties.length === 0) && <div className='flex items-center justify-center mt-10'>
                             <div className='flex flex-col items-center justify-center'>
-                                <img src="/images/empty-pana.svg" alt="" className='w-80' />
+                                <img src="/images/svgs/closed-store.svg" alt="" className='w-80' />
                                 <span className='font-bold text-slate-400'>No Search Result Found.</span>
                             </div>
                         </div>}

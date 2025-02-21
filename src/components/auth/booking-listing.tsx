@@ -19,7 +19,7 @@ const BookingListing: React.FC = () => {
         setIsloading(true);
 
         try {
-            api.get('/bookings', {
+            api.get('/bookings/user', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
