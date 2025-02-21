@@ -21,7 +21,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org patienceman --project consult-solution-frontend ./ && sentry-cli sourcemaps upload --org patienceman --project consult-solution-frontend ./"
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down"
   },
   "eslintConfig": {
     "extends": [

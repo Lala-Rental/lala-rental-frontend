@@ -7,34 +7,25 @@ import ProtectedRoute from '../utils/ProtectedRoute.tsx';
 // Layouts
 import AppLayout from '../layouts/app.tsx';
 import AuthUserLayout from '../layouts/user.tsx';
-import AuthAdminLayout from '../layouts/admin.tsx';
-import Logo from "../components/logo.tsx";
+import SplashScreen from "../components/splash-screen.tsx";
+import RoleProtectedRoute from "../utils/RoleProtectedRoute.tsx";
 
 // Pages
 const Home = lazy(() => import('../pages/home.tsx'));
 const Login = lazy(() => import('../pages/auth/login.tsx'));
-const UserDashboard = lazy(() => import('../pages/user/dashboard.tsx'));
-const Reports = lazy(() => import('../pages/admin/reports.tsx'));
-const Users = lazy(() => import('../pages/admin/users.tsx'));
-const Subscribers = lazy(() => import('../pages/admin/subscribers.tsx'));
+const UserDashboard = lazy(() => import('../pages/auth/dashboard.tsx'));
+const UserBookings = lazy(() => import('../pages/auth/bookings.tsx'));
 const NotFound = lazy(() => import('../pages/not-found.tsx'));
 const CustomSupport = lazy(() => import('../pages/privacy/custom-support.tsx'));
 const PrivacyPolicy = lazy(() => import('../pages/privacy/privacy-policy.tsx'));
 const TermsAndConditions = lazy(() => import('../pages/privacy/terms-and-conditions.tsx'));
 const Listings = lazy(() => import('../pages/listings.tsx'));
-const Contacts = lazy(() => import('../pages/contacts.tsx'));
-const AdminDashboard = lazy(() => import('../pages/admin/dashboard.tsx'));
-const QuickPost = lazy(() => import('../pages/quick-post.tsx'));
+const BecomeHost = lazy(() => import('../pages/become-host.tsx'));
 const CardDetails = lazy(() => import('../pages/card-details.tsx'));
 
 // Fallback Loader Component
 const Loading = () => {
-    return (<div className="h-screen w-screen flex items-center justify-center">
-        <div className="flex items-center space-x-2">
-            <Logo />
-            <span className='font-bold capitalize leading-10 text-xl'>Lala Rental</span>
-        </div>
-    </div>);
+    return (<SplashScreen />);
 };
 
 const AppRoutes: React.FC = () => {
@@ -44,11 +35,13 @@ const AppRoutes: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<AppLayout />}>
                         <Route index element={<Home />} />
-                        <Route path="contact-us" element={<Contacts />} />
-
-                        <Route path='become-host' element={<QuickPost />} />
                         <Route path="listings" element={<Listings />} />
-                        <Route path='cars/:id' element={<CardDetails />} />
+                        <Route path='properties/:id' element={<CardDetails />} />
+
+                        {/* Become Host */}
+                        <Route element={<RoleProtectedRoute allowedRoles={['GUEST', 'HOST']} />}>
+                            <Route path='become-host' element={<BecomeHost />} />
+                        </Route>
 
                         {/* Authentication Routes */}
                         <Route path="login" element={<Login />} />
@@ -57,15 +50,13 @@ const AppRoutes: React.FC = () => {
                         <Route path="/" element={<ProtectedRoute />}>
                             {/* User Dashboard */}
                             <Route path="/user" element={<AuthUserLayout />}>
-                                <Route path="dashboard" element={<UserDashboard />} />
-                            </Route>
+                                <Route element={<RoleProtectedRoute allowedRoles={['HOST']} />}>
+                                    <Route path="dashboard" element={<UserDashboard />} />
+                                </Route>
 
-                            {/* Administration Dashboard */}
-                            <Route path="/admin" element={<AuthAdminLayout />}>
-                                <Route path="dashboard" element={<AdminDashboard />} />
-                                <Route path="users" element={<Users />} />
-                                <Route path="subscribers" element={<Subscribers />} />
-                                <Route path="reports" element={<Reports />} />
+                                <Route element={<RoleProtectedRoute allowedRoles={['RENTER', 'HOST']} />}>
+                                    <Route path="bookings" element={<UserBookings />} />
+                                </Route>
                             </Route>
                         </Route>
 

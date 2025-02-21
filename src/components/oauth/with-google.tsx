@@ -3,39 +3,37 @@ import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
 import api from '../../services/api.ts';
 import { useGlobalAlert } from '../../contexts/AlertContext.tsx';
 import AlertMessage from '../alerts/alert-message.tsx';
-import { useNavigate } from 'react-router-dom';
 
 interface OauthProps {
-    onLoading: (loading: boolean) => void
+    metaData?: any;
+    callback: (response: any) => void;
 }
 
-const ContinueWithGoogle: React.FC<OauthProps> = () => {
+const ContinueWithGoogle: React.FC<OauthProps> = ({ metaData, callback }) => {
     const [loading, setLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const { setGlobalAlert } = useGlobalAlert();
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
-    const navigate = useNavigate();
     
     const handleSubmit = async (tokenResponse: Omit<TokenResponse, "error" | "error_description" | "error_uri">) => {
         try {
             setLoading(true);
 
-            api.post<{ access_token: string, message: string }>('/auth/google', { token: tokenResponse.access_token }, {
+            api.post<{ data: { access_token: string }, message: string }>('/auth/google', { token: tokenResponse.access_token, ...metaData }, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
             }).then((response) => {                
-                const accessToken = response.data.access_token;
+                const accessToken = response.data.data.access_token;
                 
-                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('lala-rental-token', accessToken);
 
                 setGlobalAlert('Authentication With Google Success', 'success');  
                 setAlertMessage(response.data.message);
                 setAlertType('success');
                 setLoading(false);
-
-                navigate('/user/dashboard');
+                callback({ access_token: accessToken });
             }).catch((error) => {
                 setAlertMessage('An error occurred. '+error.response.data.message);
                 setAlertType('error');

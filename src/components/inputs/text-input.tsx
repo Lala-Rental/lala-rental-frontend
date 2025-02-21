@@ -10,9 +10,11 @@ interface TextInputProps {
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     children?: React.ReactNode;
     disabled?: boolean;
+    min?: any;
+    max?: any;
 }
 
-const TextInput: React.FC<TextInputProps> = ({ label, placeholder, value, type, errorMessage, onChange, onKeyDown, children, disabled=false }) => {
+const TextInput: React.FC<TextInputProps> = ({ label, placeholder, value, type, errorMessage, onChange, onKeyDown, children, disabled=false, min, max }) => {
     return (
         <div className='mt-3'>
             <label className="text-base font-medium text-slate-700 capitalize">{label}</label>
@@ -28,6 +30,8 @@ const TextInput: React.FC<TextInputProps> = ({ label, placeholder, value, type, 
                     onKeyDown={onKeyDown}
                     placeholder={placeholder}
                     disabled={disabled}
+                    min={min}
+                    max={max}
                     className={`block w-full py-4 pl-12 pr-4 transition-all duration-200 border rounded-md focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600 ${errorMessage ? 'text-red-700 placeholder-red-500 border-red-200 bg-red-50' : 'text-black placeholder-gray-500 border-gray-200 bg-gray-50'}`}
                 />
             </div>
