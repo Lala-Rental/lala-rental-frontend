@@ -23,7 +23,7 @@ const UserDashboard: React.FC = () => {
     
     return (
         <ErrorBoundary>
-            <div className='section'>
+            <div className='section min-h-screen'>
                 <div className='flex justify-between mb-5'>
                     {/* Section Title */}
                     <SectionTitle title='Manage Properties' path='Properties' />

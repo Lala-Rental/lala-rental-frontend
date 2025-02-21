@@ -70,7 +70,7 @@ const BasicInformation: React.FC<BasicInformProps> = ({ title, setTitle, locatio
             </SelectInput>}
 
             <TextInput
-                label="Price"
+                label="Price Per Night"
                 placeholder="Eg: 20,000"
                 value={formattedPrice}
                 onChange={(value) => handlePriceChange(value)}

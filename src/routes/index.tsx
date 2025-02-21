@@ -8,6 +8,7 @@ import ProtectedRoute from '../utils/ProtectedRoute.tsx';
 import AppLayout from '../layouts/app.tsx';
 import AuthUserLayout from '../layouts/user.tsx';
 import SplashScreen from "../components/splash-screen.tsx";
+import RoleProtectedRoute from "../utils/RoleProtectedRoute.tsx";
 
 // Pages
 const Home = lazy(() => import('../pages/home.tsx'));
@@ -19,7 +20,7 @@ const CustomSupport = lazy(() => import('../pages/privacy/custom-support.tsx'));
 const PrivacyPolicy = lazy(() => import('../pages/privacy/privacy-policy.tsx'));
 const TermsAndConditions = lazy(() => import('../pages/privacy/terms-and-conditions.tsx'));
 const Listings = lazy(() => import('../pages/listings.tsx'));
-const QuickPost = lazy(() => import('../pages/quick-post.tsx'));
+const BecomeHost = lazy(() => import('../pages/become-host.tsx'));
 const CardDetails = lazy(() => import('../pages/card-details.tsx'));
 
 // Fallback Loader Component
@@ -34,10 +35,13 @@ const AppRoutes: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<AppLayout />}>
                         <Route index element={<Home />} />
-
-                        <Route path='become-host' element={<QuickPost />} />
                         <Route path="listings" element={<Listings />} />
                         <Route path='properties/:id' element={<CardDetails />} />
+
+                        {/* Become Host */}
+                        <Route element={<RoleProtectedRoute allowedRoles={['GUEST', 'HOST']} />}>
+                            <Route path='become-host' element={<BecomeHost />} />
+                        </Route>
 
                         {/* Authentication Routes */}
                         <Route path="login" element={<Login />} />
@@ -46,8 +50,13 @@ const AppRoutes: React.FC = () => {
                         <Route path="/" element={<ProtectedRoute />}>
                             {/* User Dashboard */}
                             <Route path="/user" element={<AuthUserLayout />}>
-                                <Route path="dashboard" element={<UserDashboard />} />
-                                <Route path="bookings" element={<UserBookings />} />
+                                <Route element={<RoleProtectedRoute allowedRoles={['HOST']} />}>
+                                    <Route path="dashboard" element={<UserDashboard />} />
+                                </Route>
+
+                                <Route element={<RoleProtectedRoute allowedRoles={['RENTER', 'HOST']} />}>
+                                    <Route path="bookings" element={<UserBookings />} />
+                                </Route>
                             </Route>
                         </Route>
 

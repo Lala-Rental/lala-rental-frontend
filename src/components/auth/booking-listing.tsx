@@ -27,7 +27,6 @@ const BookingListing: React.FC = () => {
                     direction: 'desc',
                 }
             }).then((response: any) => {
-                console.log(response.data.data);
                 setData(response.data.data);
                 setIsloading(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {

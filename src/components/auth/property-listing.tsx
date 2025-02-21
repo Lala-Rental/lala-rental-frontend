@@ -56,7 +56,7 @@ const PropertyListing: React.FC = () => {
                 { key: 'image', label: 'Image' },
                 { key: 'title', label: 'Title', sortable: true },
                 { key: 'hoster', label: 'Hoster' },
-                { key: 'price', label: 'Price', sortable: true },
+                { key: 'price', label: 'Price Per Night', sortable: true },
                 { key: 'status', label: 'Status' },
                 { key: 'actions', label: 'Actions' },
             ]} 
