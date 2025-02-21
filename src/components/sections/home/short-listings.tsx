@@ -5,25 +5,28 @@ import Card from "../../cards/card.tsx";
 
 interface ShortListingsProps {
     isLoading: boolean;
-    cars: any;
+    datas: any;
     params: any;
-    children: React.ReactNode;
 }
 
-const ShortListings: React.FC<ShortListingsProps> = ({ children, isLoading, cars, params }) => {
+const ShortListings: React.FC<ShortListingsProps> = ({ isLoading, datas, params }) => {
     return (
         <section className="mb-5">
-            <div className="text-left">
-                {children}
-            </div>
-
             {/* Skeleton */}
             {isLoading && <CardListingSkeleton numberOfCards={params.limit} />}
+
+            {/* No Listings */}
+            {(!isLoading && (!datas || datas.length === 0)) && (
+                <div className="flex flex-col justify-center mt-10 items-center">
+                    <img src="/images/svgs/closed-store.svg" className="w-80" alt="No Listings" /> <br />
+                    <div className="text-slate-700 font-bold">No Listings Founds.</div>
+                </div>
+            )}
 
             {/* Car Postings */}
             {!isLoading && <div className='mt-10'>
                 <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                        
-                    {cars.map((item, index) => (
+                    {datas.map((item, index) => (
                         <Card key={index} data={item} />
                     ))}
                 </div>

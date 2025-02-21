@@ -7,12 +7,13 @@ import ProtectedRoute from '../utils/ProtectedRoute.tsx';
 // Layouts
 import AppLayout from '../layouts/app.tsx';
 import AuthUserLayout from '../layouts/user.tsx';
-import Logo from "../components/logo.tsx";
+import SplashScreen from "../components/splash-screen.tsx";
 
 // Pages
 const Home = lazy(() => import('../pages/home.tsx'));
 const Login = lazy(() => import('../pages/auth/login.tsx'));
 const UserDashboard = lazy(() => import('../pages/auth/dashboard.tsx'));
+const UserBookings = lazy(() => import('../pages/auth/bookings.tsx'));
 const NotFound = lazy(() => import('../pages/not-found.tsx'));
 const CustomSupport = lazy(() => import('../pages/privacy/custom-support.tsx'));
 const PrivacyPolicy = lazy(() => import('../pages/privacy/privacy-policy.tsx'));
@@ -23,12 +24,7 @@ const CardDetails = lazy(() => import('../pages/card-details.tsx'));
 
 // Fallback Loader Component
 const Loading = () => {
-    return (<div className="h-screen w-screen flex items-center justify-center">
-        <div className="flex items-center space-x-2">
-            <Logo />
-            <span className='font-bold capitalize leading-10 text-xl'>Lala Rental</span>
-        </div>
-    </div>);
+    return (<SplashScreen />);
 };
 
 const AppRoutes: React.FC = () => {
@@ -41,7 +37,7 @@ const AppRoutes: React.FC = () => {
 
                         <Route path='become-host' element={<QuickPost />} />
                         <Route path="listings" element={<Listings />} />
-                        <Route path='cars/:id' element={<CardDetails />} />
+                        <Route path='properties/:id' element={<CardDetails />} />
 
                         {/* Authentication Routes */}
                         <Route path="login" element={<Login />} />
@@ -51,6 +47,7 @@ const AppRoutes: React.FC = () => {
                             {/* User Dashboard */}
                             <Route path="/user" element={<AuthUserLayout />}>
                                 <Route path="dashboard" element={<UserDashboard />} />
+                                <Route path="bookings" element={<UserBookings />} />
                             </Route>
                         </Route>
 

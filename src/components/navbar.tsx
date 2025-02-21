@@ -75,13 +75,13 @@ const NavBar: React.FC = () => {
     }, []);
 
     return (
-        <header className="bg-white lg:pb-0 border-b border-gray-200">
+        <header className="bg-primary lg:pb-0">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <nav className="flex items-center justify-between">
                     <div className="flex-shrink-0">
                         <Link to="/" title="" className="flex items-center space-x-2">
                             <Logo />
-                            <span className='font-bold capitalize leading-10'>Lala Rental</span>
+                            <span className="font-bold text-xl capitalize leading-10 bg-gradient-to-r from-green-300 to-white bg-clip-text text-transparent">Lala Rental</span>
                         </Link>
                     </div>
 
@@ -95,7 +95,7 @@ const NavBar: React.FC = () => {
                     </button>
 
                     <div className="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-10 overflow-hidden h-15 lg:h-20">
-                        <NavLink to="/" className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
+                        <NavLink to="/" className={({ isActive }) => `text-base relative font-medium text-white transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
                             {({ isActive }) => (
                                 <>
                                     <span>
@@ -111,7 +111,7 @@ const NavBar: React.FC = () => {
                         </NavLink>
 
                         {!isAuthenticated && ( 
-                            <NavLink to="/login" className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>{({ isActive }) => (
+                            <NavLink to="/login" className={({ isActive }) => `text-base relative font-medium text-white transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>{({ isActive }) => (
                                 <>
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M20.59 22c0-3.87-3.85-7-8.59-7s-8.59 3.13-8.59 7" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
@@ -123,13 +123,13 @@ const NavBar: React.FC = () => {
                         )}
                     </div>
 
-                    <div className='hidden md:block ml-6'>
+                    <div className='hidden md:block ml-7'>
                         <div className='flex items-center'>
-                            <Link to="/listings" className="inline-flex border border-gray-200 h-11 w-full items-center justify-center text-sm rounded-full bg-secondary px-5 font-medium tracking-wide text-slate-700 shadow-none outline-none transition duration-200 hover:bg-secondary/80 focus:ring sm:w-auto">
+                            <Link to="/listings" className="inline-flex h-11 text-white w-full items-center justify-center text-sm rounded-full bg-transparent border border-gay-100 px-5 font-medium tracking-wide shadow-none outline-none transition duration-200 hover:bg-secondary/80 focus:ring sm:w-auto">
                                 <span className='mr-2'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.828H8.49c-2.49 0-3.04 1.24-3.36 2.76L4 10.998h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.989 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37h-5.12c-1.44 0-1.65.62-1.9 1.37l-.2.6c-.19.57-.34 1.03-1.42 1.03h-1.88c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09c.14-1.5.43-2.73 3.05-2.73h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><g opacity=".4" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v2M10.5 5h3"></path></g><path opacity=".4" d="M6 15h3M15 15h3" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
                                 <span className='uppercase'>Rent Now</span>
                             </Link>
-                            <Link to="/become-host" className="inline-flex border border-gray-200 h-11 w-full items-center justify-center text-sm ml-2 rounded-full bg-secondary px-5 font-medium tracking-wide text-slate-700 shadow-none outline-none transition duration-200 hover:bg-secondary focus:ring sm:w-auto">
+                            <Link to="/become-host" className="inline-flex h-11 w-full items-center justify-center text-sm ml-2 rounded-full bg-white px-5 font-medium tracking-wide text-slate-700 shadow-none outline-none transition duration-200 hover:bg-secondary focus:ring sm:w-auto">
                                 <span className='uppercase'>Host Now</span>
                                 <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#03783d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#03783d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
                             </Link>

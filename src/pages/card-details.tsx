@@ -5,32 +5,24 @@ import { useParams } from 'react-router-dom';
 import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 import MetaTags from '../components/MetaTags.tsx';
-import FormModal from '../components/models/form-model.tsx';
-import TextInput from '../components/inputs/text-input.tsx';
-import TextAreaInput from '../components/inputs/textarea-input.tsx';
-import FormButton from '../components/buttons/form-button.tsx';
 import CardListing from '../components/sections/listings/card-listing.tsx';
 import { IPropertyDetails } from '../types/property.type.ts';
+import BookingForm from '../components/forms/booking-form.tsx';
 
 const CardDetails: React.FC = () => {
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState<'success' | 'error'>('success');
-
-    const [propertyDetails, setPropertyDetails] = useState<IPropertyDetails | null>(null);
-    const [relatedProperties, setRelatedCars] = useState<any[]>([]);
     const { id } = useParams<{ id: string }>();
     const contactNumber = process.env.REACT_APP_ADMIN_PHONE;
+
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState<'success' | 'error'>('success');
+    const [propertyDetails, setPropertyDetails] = useState<IPropertyDetails | null>(null);
+    const [relatedProperties, setRelatedProperties] = useState<any[]>([]);
     
     const [defaultImage, setDefaultImage] = useState<string>('https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180');
     const [selectedImage, setSelectedImage] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsloading] = useState(false);
-    
-    // Form
-    const [fullname, setFullname] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
-
+  
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
 
@@ -43,52 +35,12 @@ const CardDetails: React.FC = () => {
         window.open(whatsappUrl, '_blank');
     };
 
-    const handleBooking = () => {
-        if (!fullname || !email || !message) {
-            setAlertMessage('all inputs are required');
-            setAlertType('error');
-            return;
-        }
-
-        try {
-            setIsloading(true);
-
-            api.post('/user/inquiries', { 
-                name: fullname, 
-                email, 
-                message,
-                carId: id
-            }, {
-                headers: { 'Accept': 'application/json' }
-            }).then((response: any) => {
-                handleCloseModal();
-
-                // clear form
-                setFullname('');
-                setEmail('');
-                setMessage('');
-
-                setAlertMessage(response.data.message);
-                setAlertType('success');
-                setIsloading(false);
-            }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
-                setAlertType('error');
-                setIsloading(false);
-            })
-        } catch (error) {
-            setAlertMessage('An error occurred. Please try again.');
-            setAlertType('error');
-            setIsloading(false);
-        }
-    }
-
     const fetchCardDetails = async () => {
         
         setIsloading(true);
 
         try {
-            api.get(`/cars/show/${id}`).then((response: any) => {
+            api.get(`/properties/${id}`).then((response: any) => {
                 setPropertyDetails(response.data.data);
                 setIsloading(false);
             }).catch(() => {
@@ -103,13 +55,13 @@ const CardDetails: React.FC = () => {
         }
     }
 
-    const fetchRelatedCars = async () => {
+    const fetchRelatedProperties = async () => {
         try {
-            api.get(`/cars/related/${id}`).then((response: any) => {
-                setRelatedCars(response.data.data);
+            api.get(`/properties/${id}/related`).then((response: any) => {
+                setRelatedProperties(response.data.data);
                 setIsloading(false);
             }).catch(() => {
-                setAlertMessage('An error occurred. Unable to fetch related cars.');
+                setAlertMessage('An error occurred. Unable to fetch related data.');
                 setAlertType('error');
                 setIsloading(false);
             });
@@ -128,7 +80,7 @@ const CardDetails: React.FC = () => {
 
     useEffect(() => {
         fetchCardDetails();
-        fetchRelatedCars();
+        fetchRelatedProperties();
     }, [id]);
 
     return (
@@ -202,50 +154,11 @@ const CardDetails: React.FC = () => {
                                             
                                             <button onClick={handleOpenModal} className="bg-indigo-700 flex items-center rounded-lg leading-none py-4 px-5 md:px-8 font-normal text-sm h-11 text-white transition-all hover:bg-indigo-700/90 ml-2">
                                                 <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 5.25v3.9c0 1.49-.76 2.61-2 3.05-.38.13-.8.2-1.25.2h-2.6l-2.89 1.93c-.43.28-1.01-.03-1.01-.54V12.4c-.97 0-1.79-.32-2.36-.89-.57-.57-.89-1.39-.89-2.36v-3.9c0-.45.07-.87.2-1.25.44-1.24 1.56-2 3.05-2h6.5C20.7 2 22 3.3 22 5.25Z" stroke="#ffffff" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><g opacity=".4" stroke="#ffffff" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"><path d="M20 12.2v1.7c0 3.15-1.8 4.5-4.5 4.5h-9c-2.7 0-4.5-1.35-4.5-4.5V8.5C2 5.35 3.8 4 6.5 4h2.7c-.13.38-.2.8-.2 1.25v3.9c0 .97.32 1.79.89 2.36.57.57 1.39.89 2.36.89v1.39c0 .51.58.82 1.01.54l2.89-1.93h2.6c.45 0 .87-.07 1.25-.2ZM7.398 22h7.2M11 18.398v3.6"></path></g><path d="M18.495 7.25h.01M15.695 7.25h.009M12.894 7.25h.009" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                                <span className='ml-3'>Send Inquiry</span>
+                                                <span className='ml-3'>Book Now</span>
                                             </button>
 
-                                            {/* Form for Submitting Cars */}
-                                            <FormModal isOpen={isModalOpen} onClose={handleCloseModal}>
-                                                <h2 className="text-xl font-semibold mb-4 text-slate-700 flex items-center">
-                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8.5 19H8c-4 0-6-1-6-6V8c0-4 2-6 6-6h8c4 0 6 2 6 6v5c0 4-2 6-6 6h-.5c-.31 0-.61.15-.8.4l-1.5 2c-.66.88-1.74.88-2.4 0l-1.5-2c-.16-.22-.53-.4-.8-.4Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M15.995 11h.008M11.995 11h.009M7.995 11h.008" stroke="#697689" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                                    <span className='ml-2'>Send Your Inquiry Now!</span>
-                                                </h2>
-                                                <p>Interested in this propertyDetails? Send us your inquiry and we'll get back to you as soon as possible. Fill out the details below to get started.</p>
-
-                                                <hr className="my-5 border-gray-200" />
-
-                                                <form onSubmit={handleBooking}>
-
-                                                    <TextInput
-                                                        label="Your Fullname"
-                                                        placeholder="Eg: John Doe"
-                                                        value={fullname}
-                                                        onChange={setFullname}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                                    </TextInput>
-
-                                                    <TextInput
-                                                        label="Your Email Address"
-                                                        placeholder="example@example.com"
-                                                        value={email}
-                                                        onChange={setEmail}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                                    </TextInput>
-
-                                                    <TextAreaInput
-                                                        label="Message"
-                                                        placeholder="Write a short Message...."
-                                                        value={message}
-                                                        onChange={setMessage}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM20 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM20 22a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM4 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM6 12h12" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M18 4h-4c-2 0-3 1-3 3v10c0 2 1 3 3 3h4" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                                    </TextAreaInput>
-
-                                                    <div className="flex items-center justify-between mt-4">
-                                                        <FormButton text="Send Now" isLoading={isLoading} type="submit" className="mt-5" />
-                                                    </div>
-                                                </form>
-                                            </FormModal>
+                                            {/* Form for Submitting data */}
+                                            <BookingForm propertyId={id as string} isOpen={isModalOpen} onClose={handleCloseModal}  />
                                         </div>
                                     </div>
                                 </div>
@@ -257,9 +170,9 @@ const CardDetails: React.FC = () => {
 
             {/* Related Properities Section */}
             {relatedProperties.length > 1 && <section className='py-4 lg:py-4'>
-                {/* related cars */}
+                {/* related Properties */}
                 <CardListing
-                    title="Cars you might be interested In"
+                    title="Properties you might be interested In"
                     description="Other listings that might interest you based on your current selection."
                     datas={relatedProperties}
                     isLoading={isLoading}
