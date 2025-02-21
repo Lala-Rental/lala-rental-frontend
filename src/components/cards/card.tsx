@@ -56,7 +56,7 @@ const Card: React.FC<CardProps> = ({ data }) => {
                     </p>            
                     
                     <div>
-                        <Link to={`/cars/${data?.id}`} aria-label="Article" className="inline-block mb-3 mt-2 text-black transition-colors duration-200 hover:text-deep-purple-accent-700">
+                        <Link to={`/properties/${data?.id}`} aria-label="Article" className="inline-block mb-3 mt-2 text-black transition-colors duration-200 hover:text-deep-purple-accent-700">
                             <p className="text-xl font-bold leading-5 text-slate-700">
                                 {new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(data?.price))}
                             </p>                        

@@ -47,7 +47,7 @@ const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                         onKeyDown={handleKeyDown}
-                                        placeholder="Search your desired property..."
+                                        plrdaceholder="Search your desired property..."
                                         className="border-none font-bold outline-none focus:border-none focus:outline-none ml-3 bg-white w-full h-full text-slate-700"
                                     />
                                     <div className='hidden md:block'>

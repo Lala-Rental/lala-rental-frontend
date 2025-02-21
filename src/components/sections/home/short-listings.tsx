@@ -5,12 +5,12 @@ import Card from "../../cards/card.tsx";
 
 interface ShortListingsProps {
     isLoading: boolean;
-    cars: any;
+    datas: any;
     params: any;
     children: React.ReactNode;
 }
 
-const ShortListings: React.FC<ShortListingsProps> = ({ children, isLoading, cars, params }) => {
+const ShortListings: React.FC<ShortListingsProps> = ({ children, isLoading, datas, params }) => {
     return (
         <section className="mb-5">
             <div className="text-left">
@@ -23,7 +23,7 @@ const ShortListings: React.FC<ShortListingsProps> = ({ children, isLoading, cars
             {/* Car Postings */}
             {!isLoading && <div className='mt-10'>
                 <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                        
-                    {cars.map((item, index) => (
+                    {datas.map((item, index) => (
                         <Card key={index} data={item} />
                     ))}
                 </div>

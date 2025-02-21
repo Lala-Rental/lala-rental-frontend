@@ -51,7 +51,7 @@ const Home: React.FC = () => {
     };
 
     /**
-     * Fetches the cars
+     * Fetches the properties
      * 
      * @returns void
      */
@@ -81,8 +81,8 @@ const Home: React.FC = () => {
             {/* <Hero onLoading={isLoading} onChange={fetchAllProperties} /> */}
 
             <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-26 lg:px-12 lg:py-12">
-                {/* Short list of cars */}
-                <ShortListings isLoading={isLoading} cars={data} params={params}>
+                {/* Short list of properties */}
+                <ShortListings isLoading={isLoading} datas={data} params={params}>
                     <h3 className="text-2xl font-bold text-slate-700 sm:text-3xl lg:text-4xl capitalize md:leading-loose">wide range of houses to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
                     <p className="max-w-xl text-base leading-relaxed text-gray-600 mt-6">
                         Find your dream house from our extensive collection. Quality houses for every budget.

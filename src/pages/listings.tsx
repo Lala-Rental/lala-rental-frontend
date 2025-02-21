@@ -8,7 +8,7 @@ import Card from '../components/cards/card.tsx';
 
 const Listings: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [cars, setCars] = useState<any[]>([]);
+    const [properties, setProperties] = useState<any[]>([]);
 
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
@@ -38,7 +38,7 @@ const Listings: React.FC = () => {
         try {
             api.get(`/properties`, { params })
                 .then((response: any) => {
-                    setCars(response.data.data);
+                    setProperties(response.data.data);
                     setIsLoading(false);
                 }).catch((error: { response: { data: { message: string; }; }; }) => {
                     setAlertMessage('An error occurred. ' + error.response.data.message);
@@ -75,7 +75,7 @@ const Listings: React.FC = () => {
                     <div className="px-4 py-2 mx-auto relative z-40 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-2 lg:px-8 lg:py-7 bg-white bg-opacity-90 rounded-lg">
                         {/* Title */}
                         <div className='flex flex-wrap gap-4 items-center justify-center mb-5'>
-                            <span className='text-slate-700 text-2xl font-bold text-center'>Find Your Dream Car Across the City</span>
+                            <span className='text-slate-700 text-2xl font-bold text-center'>Find Your Dream Property Across the City</span>
                         </div>
                         
                         {/* Search Query */}
@@ -89,7 +89,7 @@ const Listings: React.FC = () => {
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                         onKeyDown={handleKeyDown}
-                                        placeholder="Search different cars... (press enter to search)"
+                                        placeholder="Search different Properties... (press enter to search)"
                                         className="border-none outline-none focus:border-none focus:outline-none ml-3 bg-white w-full h-full"
                                     />
                                 </div>
@@ -117,15 +117,15 @@ const Listings: React.FC = () => {
                         {isLoading && <CardListingSkeleton numberOfCards={6} numberOfColumns={3} />}
 
                         {/* Listing */}
-                        {(!isLoading && cars.length > 0) && <div className=''>
+                        {(!isLoading && properties.length > 0) && <div className=''>
                             <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                                
-                                {!isLoading && cars.map((item, index) => (
+                                {!isLoading && properties.map((item, index) => (
                                     <Card key={index} data={item} />
                                 ))}
                             </div>
                         </div>}
 
-                        {(!isLoading && cars.length === 0) && <div className='flex items-center justify-center mt-10'>
+                        {(!isLoading && properties.length === 0) && <div className='flex items-center justify-center mt-10'>
                             <div className='flex flex-col items-center justify-center'>
                                 <img src="/images/empty-pana.svg" alt="" className='w-80' />
                                 <span className='font-bold text-slate-400'>No Search Result Found.</span>

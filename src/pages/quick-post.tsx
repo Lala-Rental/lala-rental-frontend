@@ -12,7 +12,7 @@ const QuickPost: React.FC = () => {
      * @param errors 
      */
     const handleFormError = (error: any) => setFormValidation(error);
-    const handleCarSubmit = (response: any) => navigate('/listings');
+    const handleFormSubmit = (response: any) => navigate('/listings');
 
     return (
         <section className="bg-white">
@@ -27,7 +27,7 @@ const QuickPost: React.FC = () => {
                         </div>)}
 
                         <PropertyForm 
-                            onCallback={handleCarSubmit} 
+                            onCallback={handleFormSubmit} 
                             onFallback={handleFormError}
                             isEditing={false} 
                             initialData={null} 
