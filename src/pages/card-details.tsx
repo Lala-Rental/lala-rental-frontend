@@ -108,7 +108,7 @@ const CardDetails: React.FC = () => {
                                     <div className="gallery mb-6">
                                         <div className="swiper-container swiper-initialized swiper-horizontal swiper-pointer-events">
                                             <div className="swiper-wrapper" id="swiper-wrapper-5b26c8f3eb7d9756 rounded-lg" aria-live="polite">
-                                                <div className="swiper-slide swiper-slide-active w-[559px] h-[400px] border border-gray-200 rounded-lg" role="group" aria-label="1 / 5">
+                                                <div className="swiper-slide swiper-slide-active w-[559px] h-[400px] rounded-lg" role="group" aria-label="1 / 5">
                                                     <img src={selectedImage ? selectedImage : defaultImage} alt={propertyDetails ? propertyDetails.title : 'Lala Rental Image'} className='rounded-lg h-full w-full object-cover transform transition-transform duration-300 hover:scale-105' />
                                                 </div>
                                             </div>
@@ -133,21 +133,22 @@ const CardDetails: React.FC = () => {
                         </div>
 
                         <div>
-                            <h3 className="text-2xl font-bold capitalize text-slate-700">{propertyDetails && propertyDetails.title}</h3>
-                            <h2 className="font-bold flex items-center text-md leading-none text-orange my-3 text-2xl text-green-700">
+                            <h3 className="text-2xl font-bold capitalize text-white">{propertyDetails && propertyDetails.title}</h3>
+                            
+                            <h2 className="font-bold flex items-center text-md leading-none text-orange my-3 text-2xl text-slate-100">
                                 <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><g opacity=".4" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.752 16.86v2.03c0 1.72-1.6 3.11-3.57 3.11-1.97 0-3.58-1.39-3.58-3.11v-2.03c0 1.72 1.6 2.94 3.58 2.94 1.97 0 3.57-1.23 3.57-2.94Z"></path><path d="M10.75 14.112c0 .5-.14.96-.38 1.36-.59.97-1.8 1.58-3.2 1.58-1.4 0-2.61-.62-3.2-1.58-.24-.4-.38-.86-.38-1.36 0-.86.4-1.63 1.04-2.19.65-.57 1.54-.91 2.53-.91.99 0 1.88.35 2.53.91.66.55 1.06 1.33 1.06 2.19Z"></path><path d="M10.752 14.11v2.75c0 1.72-1.6 2.94-3.57 2.94-1.97 0-3.58-1.23-3.58-2.94v-2.75c0-1.72 1.6-3.11 3.58-3.11.99 0 1.88.35 2.53.91.64.56 1.04 1.34 1.04 2.2Z"></path></g><path d="M22 10.97v2.06c0 .55-.44 1-1 1.02h-1.96c-1.08 0-2.07-.79-2.16-1.87-.06-.63.18-1.22.6-1.63.37-.38.88-.6 1.44-.6H21c.56.02 1 .47 1 1.02Z" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M2 10.5v-2c0-2.72 1.64-4.62 4.19-4.94.26-.04.53-.06.81-.06h9c.26 0 .51.01.75.05C19.33 3.85 21 5.76 21 8.5v1.45h-2.08c-.56 0-1.07.22-1.44.6-.42.41-.66 1-.6 1.63.09 1.08 1.08 1.87 2.16 1.87H21v1.45c0 3-2 5-5 5h-2.5" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
                                 <span className='ml-3'>{new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(propertyDetails && propertyDetails.price))}</span>
                             </h2>
 
-                            <div className="mb-3"><span>Dealler:</span> <span className="font-semibold">{ propertyDetails.hoster?.fullname }</span></div>
+                            <div className="mb-3  text-white"><span>Hoster:</span> <span className="font-semibold text-white">{ propertyDetails.hoster?.fullname }</span></div>
                             <div className="h-0 mt-6 mb-4 border-t-2 border-gray-200 border-dashed"></div>
-                            <p className="mb-8">{propertyDetails && propertyDetails.description}</p>
+                            <p className="mb-8 text-white">{propertyDetails && propertyDetails.description}</p>
 
                             <div>
                                 <div className="mb-8">
                                     <div className="flex flex-wrap items-center mt-8">
                                         <div className="flex items-center">
-                                            <button onClick={handleContactClick} className="bg-primary/90 flex items-center rounded-lg leading-none py-4 px-5 md:px-8 font-normal text-sm h-11 text-white transition-all hover:bg-primary/80">
+                                            <button onClick={handleContactClick} className="ring-1 ring-gray-200 flex items-center rounded-lg leading-none py-4 px-5 md:px-8 font-normal text-sm h-11 text-white transition-all hover:bg-primary/80">
                                                 <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6.94 20.63C8.42 21.5 10.15 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12c0 1.82.49 3.53 1.34 5L2 22l4.94-1.37Z" stroke="#ffffff" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M17 15.17c0 .18-.04.37-.13.55a2.279 2.279 0 0 1-1.16 1.1c-.3.13-.63.19-.98.19-.51 0-1.06-.12-1.63-.37-.58-.25-1.15-.58-1.72-.99-.58-.42-1.12-.89-1.64-1.4-.52-.52-.98-1.07-1.4-1.64-.41-.57-.74-1.14-.98-1.71C7.12 10.33 7 9.78 7 9.26c0-.34.06-.67.18-.97.12-.31.31-.59.58-.84.32-.32.67-.47 1.04-.47.14 0 .28.03.41.09.13.06.25.15.34.28l1.16 1.64c.09.13.16.24.2.35.05.11.07.21.07.31 0 .12-.04.24-.11.36s-.16.24-.28.36l-.38.4c-.06.06-.08.12-.08.2 0 .04.01.08.02.12.02.04.03.07.04.1.09.17.25.38.47.64a13.48 13.48 0 0 0 1.53 1.53c.26.22.48.37.65.46.03.01.06.03.09.04.04.02.08.02.13.02.09 0 .15-.03.21-.09l.38-.38c.13-.13.25-.22.36-.28.12-.07.23-.11.36-.11.1 0 .2.02.31.07.11.05.23.11.35.2l1.66 1.18c.13.09.22.2.28.32 0 .12.03.24.03.38Z" stroke="#ffffff" strokeWidth="1.5" strokeMiterlimit="10"></path></svg></span>
                                                 <span className='ml-3'>Contact Us</span>
                                             </button>
