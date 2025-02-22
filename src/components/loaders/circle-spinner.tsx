@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FetchLoader: React.FC = () => {
+const CircleSpinner: React.FC = () => {
   return (
     <div className="flex justify-center items-center">
       <span className="fetch-loader border"></span>
@@ -8,4 +8,4 @@ const FetchLoader: React.FC = () => {
   );
 };
 
-export default FetchLoader;
+export default CircleSpinner;

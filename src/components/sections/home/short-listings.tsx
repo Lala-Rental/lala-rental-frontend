@@ -24,13 +24,15 @@ const ShortListings: React.FC<ShortListingsProps> = ({ isLoading, datas, params 
             )}
 
             {/* Car Postings */}
-            {!isLoading && <div className='mt-10'>
-                <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                        
-                    {datas.map((item, index) => (
-                        <Card key={index} data={item} />
-                    ))}
+            {!isLoading && (
+                <div className="mt-10">
+                    <div className="grid gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">
+                        {datas.map((item, index) => (
+                            <Card key={index} data={item} />
+                        ))}
+                    </div>
                 </div>
-            </div>}
+            )}
 
             <div className="flex justify-center mt-10">
                 <Link to={'/listings'} className="px-6 py-2 bg-gradient-to-b from-primary to-[#08201D] text-white rounded-full text-md flex items-center ring-slate-400 ring-1">

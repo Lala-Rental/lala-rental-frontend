@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FetchLoader from '../../loaders/fetching-loader.tsx';
+import CircleSpinner from '../../loaders/circle-spinner.tsx';
 
 interface HeroProps {
     onLoading?: Boolean;
@@ -40,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
                                     className="border-none font-bold outline-none focus:border-none focus:outline-none ml-3 bg-white w-full h-full text-slate-700"
                                 />
                                 <div className='hidden md:block'>
-                                    {onLoading && <FetchLoader />}
+                                    {onLoading && <CircleSpinner />}
 
                                     {!onLoading && <button onClick={handleSearch} className="inline-flex h-11 w-full items-center justify-center text-sm ml-10 rounded-full bg-primary px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
                                         <span className='uppercase'>Search</span>
