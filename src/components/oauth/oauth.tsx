@@ -3,7 +3,7 @@ import ContinueWithGoogle from './with-google.tsx'
 
 interface OauthProps {
   data?: any;
-  onSuccess?: (response: any) => void;
+  onSuccess: (response: any) => void;
 }
 
 const OAuth: React.FC<OauthProps> = ({ data, onSuccess }) => {

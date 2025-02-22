@@ -8,10 +8,7 @@ import OAuth from '../../components/oauth/oauth.tsx';
 const Login: React.FC = () => {
     const navigate = useNavigate();
     const { isAuthenticated } = useAuth();
-
-    const handleSuccess = (response: any) => {
-        navigate('/user/dashboard');
-    };
+    const handleSuccess = (response: any) => window.location.reload();
 
     useEffect(() => {
         if (isAuthenticated) navigate('/user/dashboard');

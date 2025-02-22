@@ -5,9 +5,11 @@ import BaseTable from "../table/base-table.tsx";
 import api from '../../services/api.ts';
 import { useAuth } from '../../contexts/AuthContext.tsx';
 import TableRow from "../table/table-row.tsx";
+import AlertMessage from "../alerts/alert-message.tsx";
+import CircleSpinner from "../loaders/circle-spinner.tsx";
 
 
-const PropertyListing: React.FC = () => {
+const PropertyListing: React.FC<{ onPreview: (data: any) => void, onEditing: (data: any) => void, onDelete: (id: string) => void }> = ({ onPreview, onEditing, onDelete }) => {
     const { token } = useAuth();
     const [isLoading, setIsloading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
@@ -46,6 +48,9 @@ const PropertyListing: React.FC = () => {
     }, [token]);
 
     return (<>
+        {/*  */}
+        {isLoading && <CircleSpinner />}
+
         {/* Table Data */}
         <BaseTable 
             title='' 
@@ -64,11 +69,15 @@ const PropertyListing: React.FC = () => {
                 <TableRow 
                     index={index} 
                     data={data} 
-                    onDelete={() => () => {}} 
-                    onUpdate={() => () => {}}
+                    onDelete={onDelete} 
+                    onUpdate={onEditing}
+                    onPreview={onPreview}
                 />
             )} 
         />
+
+        {/* Alert Message */}
+        <AlertMessage message={alertMessage} type={alertType} />
     </>);
 }
 
