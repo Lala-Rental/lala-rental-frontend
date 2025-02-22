@@ -29,7 +29,7 @@ const LogoutModal: React.FC = () => {
                     'Accept': 'application/json',
                 },
             }).then((response) => {
-                localStorage.removeItem('accessToken');
+                localStorage.removeItem('lala-rental-token');
 
                 setUser(null);
                 setGlobalAlert("You have been logged out successfully", 'success');

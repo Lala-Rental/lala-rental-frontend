@@ -6,10 +6,23 @@ import ErrorBoundary from '../../utils/ErrorBoundary.tsx';
 
 import PropertyListing from '../../components/auth/property-listing.tsx';
 import PropertyForm from '../../components/forms/property-form.tsx';
+import { useAuth } from '../../contexts/AuthContext.tsx';
+import api from '../../services/api.ts';
+import CircleSpinner from '../../components/loaders/circle-spinner.tsx';
+import AlertMessage from '../../components/alerts/alert-message.tsx';
+import PropertyBookingsModal from '../../components/auth/property-bookings-modal.tsx';
 
 const UserDashboard: React.FC = () => {
+    const { token } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formValidation, setFormValidation] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
+    const [initialData, setInitialData] = useState<any>({});
+    const [isLoading, setIsloading] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState<'success' | 'error'>('success');
+    const [isBookingsModalOpen, setIsBookingsModalOpen] = useState(false);
+    const [bookingsData, setBookingsData] = useState<any>([]);
 
     /**
      *  Handle Callbacks
@@ -18,8 +31,74 @@ const UserDashboard: React.FC = () => {
      */
     const handleFormError = (error: any) => setFormValidation(error);
     const handleFormSubmit = (response: any) => window.location.reload();
+    
+    const handleFormEditing = (data: any) => {
+        setIsEditing(true);
+        setInitialData(data);
+        handleOpenModal();
+    };
+
+    const handleFormDelete = (id: string) => {
+        if (window.confirm('Are you sure you want to delete this property?')) {
+            setIsloading(true);
+
+            try {
+                api.delete(`/properties/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                }).then((response: any) => {
+                    setAlertMessage('Property deleted successfully');
+                    setAlertType('success');
+                    setIsloading(false);
+                }).catch((error: { response: { data: { message: string; }; }; }) => {
+                    setAlertMessage('An error occurred. '+error.response.data.message);
+                    setAlertType('error');
+                    setIsloading(false);
+                });
+            } catch (error) {
+                setAlertMessage('An error occurred. Something went wrong');
+                setAlertType('error');
+                setIsloading(false);
+            }
+        }
+    };
+
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
+   
+    const handleOpenBookingsModal = (propertyId: string) => {
+        fetchBookings(propertyId);
+        setIsBookingsModalOpen(true);
+    };
+
+    const handleCloseBookingsModal = () => setIsBookingsModalOpen(false);
+
+    const fetchBookings = async (id: string) => {
+        setIsloading(true);
+
+        try {
+            api.get(`/bookings/property/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                params: {
+                    direction: 'desc',
+                }
+            }).then((response: any) => {
+                setBookingsData(response.data.data);
+                setIsloading(false);
+            }).catch((error: { response: { data: { message: string; }; }; }) => {
+                setAlertMessage('An error occurred. '+error.response.data.message);
+                setAlertType('error');
+                setIsloading(false);
+            });
+        } catch (error) {
+            setAlertMessage('An error occurred. Something went wrong');
+            setAlertType('error');
+            setIsloading(false);
+        }
+    }
     
     return (
         <ErrorBoundary>
@@ -36,8 +115,14 @@ const UserDashboard: React.FC = () => {
                     </div>
                 </div>
 
+                {/* is Loading */}
+                {isLoading && <CircleSpinner />}
+
                 {/* property listing */}
-                <PropertyListing />
+                <PropertyListing onPreview={handleOpenBookingsModal} onEditing={handleFormEditing} onDelete={handleFormDelete} />
+
+                {/* Bookings Modal */}
+                <PropertyBookingsModal data={bookingsData} isOpen={isBookingsModalOpen} onClose={handleCloseBookingsModal} />
 
                 {/* Form for Submitting */}
                 <FormModal isOpen={isModalOpen} onClose={handleCloseModal}>
@@ -57,10 +142,13 @@ const UserDashboard: React.FC = () => {
                     <PropertyForm 
                         onCallback={handleFormSubmit} 
                         onFallback={handleFormError}
-                        isEditing={false} 
-                        initialData={{}} 
+                        isEditing={isEditing} 
+                        initialData={initialData} 
                     />
                 </FormModal>
+
+                {/* Alert Message */}
+                <AlertMessage message={alertMessage} type={alertType} />
             </div>
         </ErrorBoundary>
     );
