@@ -45,6 +45,11 @@ const BookingListing: React.FC = () => {
         if (token) fetchBookings();
     }, [token]);
 
+    const formatDate = (dateString: string) => {
+        const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'short', year: 'numeric' };
+        return new Intl.DateTimeFormat('en-US', options).format(new Date(dateString));
+    };
+
     return (<>
         {/* Table Data */}
         <BaseTable 
@@ -77,10 +82,10 @@ const BookingListing: React.FC = () => {
                     </div>
                 </td>
                 <td className="p-2 whitespace-nowrap">
-                    <div className="text-left">{data.checkIn}</div>
+                    <div className="text-left">{formatDate(data.checkIn)}</div>
                 </td>
                 <td className="p-2 whitespace-nowrap">
-                    <div className="text-left font-medium text-green-500">{data.checkOut}</div>
+                    <div className="text-left font-medium text-green-500">{formatDate(data.checkOut)}</div>
                 </td>
                 <td className="p-2 whitespace-nowrap">
                     <div className="text-slate-700 text-left px-2 text-sm">{data.status ?? "Unknown"}</div>

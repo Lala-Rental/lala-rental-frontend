@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import api from '../services/api.ts';
 import AlertMessage from '../components/alerts/alert-message.tsx';
-import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import MetaTags from '../components/MetaTags.tsx';
+import CircleSpinner from '../components/loaders/circle-spinner.tsx';
 
 const Contacts: React.FC = () => {
     const [name, setName] = useState('');
@@ -169,7 +169,7 @@ const Contacts: React.FC = () => {
                                             </button>
                                         </div>}
 
-                                        {isLoading && <div className='mr-3'> <FetchLoader /> </div>}
+                                        {isLoading && <div className='mr-3'> <CircleSpinner /> </div>}
                                     </div>
                                 </div>
                             </div>

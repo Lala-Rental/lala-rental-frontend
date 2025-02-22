@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/api.ts';
 import { useParams } from 'react-router-dom';
-import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 import MetaTags from '../components/MetaTags.tsx';
 import CardListing from '../components/sections/listings/card-listing.tsx';
 import { IPropertyDetails } from '../types/property.type.ts';
 import BookingForm from '../components/forms/booking-form.tsx';
+import CircleSpinner from '../components/loaders/circle-spinner.tsx';
 
 const CardDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -96,7 +96,7 @@ const CardDetails: React.FC = () => {
                 twitterCard="summary_large_image"
             />
 
-            {isLoading && (<div className='h-96 flex items-center justify-center'><FetchLoader /></div>)}
+            {isLoading && (<div className='h-96 flex items-center justify-center'><CircleSpinner /></div>)}
 
             {/* Car Details */}
             {(!isLoading && propertyDetails) && <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">

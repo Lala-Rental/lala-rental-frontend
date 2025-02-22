@@ -3,6 +3,7 @@ import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
 import api from '../../services/api.ts';
 import { useGlobalAlert } from '../../contexts/AlertContext.tsx';
 import AlertMessage from '../alerts/alert-message.tsx';
+import CircleSpinner from '../loaders/circle-spinner.tsx';
 
 interface OauthProps {
     metaData?: any;
@@ -53,6 +54,7 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ metaData, callback }) => {
 
     return (
         <div>
+            {loading && <CircleSpinner />}
             {!loading && <button onClick={() => loginWithGoogle()} type="button" className="relative inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-gray-700 transition-all duration-200 bg-white border-2 border-gray-200 rounded-md hover:bg-gray-100 focus:bg-gray-100 hover:text-black focus:text-black focus:outline-none">
                 <div className="absolute inset-y-0 left-0 p-4">
                     <svg className="w-6 h-6 text-rose-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
