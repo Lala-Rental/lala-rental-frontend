@@ -34,6 +34,7 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ metaData, callback }) => {
                 setAlertMessage(response.data.message);
                 setAlertType('success');
                 setLoading(false);
+                
                 callback({ access_token: accessToken });
             }).catch((error) => {
                 setAlertMessage('An error occurred. '+error.response.data.message);
