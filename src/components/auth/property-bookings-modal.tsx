@@ -10,6 +10,10 @@ const PropertyBookingsModal: React.FC<{ data: any, isOpen: boolean, onClose: () 
 
     return (<>
         <FormModal isOpen={isOpen} onClose={onClose}>
+            <div className="text-center mb-5 mt-2">
+                <h2 className="text-xl font-bold leading-tight text-black sm:text-xl lg:text-2xl">All Booking Recieved On Property</h2>
+            </div>
+            
             {/* Table Data */}
             <BaseTable 
                 title='' 
@@ -19,8 +23,9 @@ const PropertyBookingsModal: React.FC<{ data: any, isOpen: boolean, onClose: () 
                     { key: 'No', label: 'NO' },
                     { key: 'image', label: 'Image' },
                     { key: 'title', label: 'Title', sortable: true },
-                    { key: 'hoster', label: 'Hoster' },
                     { key: 'price', label: 'Price Per Night', sortable: true },
+                    { key: 'checkIn', label: 'Check In' },
+                    { key: 'checkOut', label: 'Check Out' },
                     { key: 'status', label: 'Status' },
                 ]} 
                 renderRow={(index: number, data: any) => (<>
