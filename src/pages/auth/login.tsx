@@ -20,7 +20,6 @@ const Login: React.FC = () => {
                 <div className="w-full max-w-2xl mx-auto">
                     <div className="text-center">
                         <h2 className="text-4xl font-bold leading-tight text-black sm:text-5xl lg:text-6xl bg-gradient-to-r from-green-300 to-white bg-clip-text text-transparent">Welcome Back!</h2>
-                        <p className="max-w-xl mx-auto mt-4 leading-relaxed text-white text-lg sm:text-xl">Login to your account</p>
                     </div>
 
                     {/* Continue with oauth */}
